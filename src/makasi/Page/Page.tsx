@@ -20,7 +20,7 @@ export const Page: FC<IPageProps> = ({ pageData, sectionDefinitions }) => {
 
         return (
           <Section key={sectionData.id} sectionData={sectionData}>
-            <sectionDefinition.Component />
+            <sectionDefinition.Component params={sectionData.params} />
           </Section>
         );
       })}

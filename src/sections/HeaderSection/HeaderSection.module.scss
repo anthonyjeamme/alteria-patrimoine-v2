@@ -1,10 +1,24 @@
 .HeaderSection {
+  min-height: 60vh;
+  display: flex;
+  text-align: center;
+
+  h1 {
+    font-size: 46px;
+    font-weight: 500;
+    margin-bottom: 30px;
+  }
+
+  .subtitle {
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
   & > div {
-    //
     padding: 100px 20px;
     width: 1000px;
     max-width: 100%;
-    margin: 0 auto;
-    background-color: var(--light);
+    margin: auto;
+    color: white;
   }
 }

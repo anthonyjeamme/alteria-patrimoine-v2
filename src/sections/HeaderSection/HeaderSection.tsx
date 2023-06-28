@@ -1,15 +1,22 @@
-import { HeadingField, TextField } from "@/makasi";
+import { Heading, Text } from "@/makasi";
 
 import { classNameModule } from "@/utils/className/className";
 import styles from "./HeaderSection.module.scss";
+import { FC } from "react";
+import { TSectionProps } from "@/makasi/Section/Section.types";
 const className = classNameModule(styles);
 
-const HeaderSection = () => {
+const HeaderSection: FC<TSectionProps> = ({ params }) => {
   return (
-    <div {...className("HeaderSection")}>
+    <div
+      {...className("HeaderSection")}
+      style={{
+        backgroundImage: `url(${params.backgroundImage})`,
+      }}
+    >
       <div>
-        <HeadingField name="title" heading={1} />
-        <TextField name="subtitle" />
+        <Heading field="title" heading={1} />
+        <Text field="subtitle" {...className("subtitle")} />
       </div>
     </div>
   );

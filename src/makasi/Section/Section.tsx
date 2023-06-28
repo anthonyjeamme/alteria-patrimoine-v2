@@ -1,7 +1,6 @@
-"use client";
-
 import { FC, ReactNode } from "react";
-import { TSectionData, TSectionDefinition } from "./Section.types";
+import { TSectionData } from "./Section.types";
+import { SectionContext } from "./Section.context";
 
 interface ISectionProps {
   children: ReactNode;
@@ -9,5 +8,9 @@ interface ISectionProps {
 }
 
 export const Section: FC<ISectionProps> = ({ sectionData, children }) => {
-  return <section>{children}</section>;
+  return (
+    <SectionContext edition={false} sectionData={sectionData}>
+      {children}
+    </SectionContext>
+  );
 };

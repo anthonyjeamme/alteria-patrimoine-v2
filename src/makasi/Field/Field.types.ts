@@ -1,3 +1,8 @@
 export type TFieldProps = {
-  name: string;
+  field: string;
+};
+
+export type TFieldData = {
+  value: any;
+  params: any;
 };
