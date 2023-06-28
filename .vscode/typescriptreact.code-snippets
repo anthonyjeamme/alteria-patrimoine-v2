@@ -1,0 +1,24 @@
+{
+  "scss": {
+    "prefix": "scss",
+    "body": [
+      "import { classNameModule } from '@/utils/className/className';",
+      "import styles from './$TM_FILENAME_BASE.module.scss';",
+      "const className = classNameModule(styles)"
+    ]
+  },
+  "slc": {
+    "prefix": "slc",
+    "body": [
+      "import { classNameModule } from '@/utils/className/className';",
+      "import styles from './$TM_FILENAME_BASE.module.scss';",
+      "const className = classNameModule(styles)",
+      "",
+      "const $TM_FILENAME_BASE = () => {",
+      "\treturn <div {...className('$TM_FILENAME_BASE')}>$1</div>;",
+      "};",
+      "",
+      "export default $TM_FILENAME_BASE;"
+    ]
+  }
+}
