@@ -1,5 +1,3 @@
-"use server";
-
 function Page() {
   return <main>TODO</main>;
 }
