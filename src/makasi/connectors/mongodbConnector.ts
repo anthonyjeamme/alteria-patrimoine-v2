@@ -3,8 +3,10 @@ import { TConnector } from "./connectors.types";
 
 const pageSchema = new mongoose.Schema(
   {
-    path: String,
-    sections: { type: mongoose.Schema.Types.Mixed, default: [] },
+    path: { type: String, required: true },
+    sections: [{ type: mongoose.Schema.Types.Mixed }],
+    footer: { enabled: { type: Boolean, default: false } },
+    navigationBar: { enabled: { type: Boolean, default: false } },
   },
   {
     timestamps: true,
@@ -28,8 +30,10 @@ export const mongodbConnector: TConnector = {
     const page = await Page.findOne({ path });
 
     if (!page) {
-      await Page.create(pageData);
-
+      await Page.create({
+        path,
+        ...pageData,
+      });
       return;
     }
 

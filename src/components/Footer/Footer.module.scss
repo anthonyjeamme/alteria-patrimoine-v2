@@ -1,0 +1,31 @@
+.Footer {
+  background-color: var(--dark);
+  color: white;
+  padding: 100px 40px 30px;
+  font-size: 14px;
+
+  @media (max-width: 768px) {
+    padding: 40px 0 20px 0;
+  }
+
+  .copyright {
+    opacity: 0.4;
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .columns {
+    margin-top: 20px;
+    margin-bottom: 60px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}

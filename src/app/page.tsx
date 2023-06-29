@@ -1,7 +1,8 @@
 import { Page } from "@/makasi";
-import { PageEdition } from "@/makasi/Page/Page.edition";
 import { mongodbConnector } from "@/makasi/connectors/mongodbConnector";
 import { sections } from "@/sections/sections";
+import Footer from "@/components/Footer/Footer";
+import NavigationBar from "@/components/NavigationBar/NavigationBar";
 
 export default async function Home() {
   // TODO fetch data !
@@ -22,15 +23,29 @@ export default async function Home() {
   //         },
   //       },
   //       params: {
-  //         backgroundImage:
+  //         backgroundImage: "/images/header-background.jpg",
+  //         backgroundImageOld:
   //           "https://images.unsplash.com/photo-1573126617899-41f1dffb196c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
   //       },
   //       type: "header",
   //     },
   //   ],
+  //   footer: {
+  //     enabled: true,
+  //   },
+  //   navigationBar: {
+  //     enabled: true,
+  //   },
   // });
 
   const page = await mongodbConnector.getPage("/");
 
-  return <Page sectionDefinitions={sections} pageData={page} />;
+  return (
+    <Page
+      sectionDefinitions={sections}
+      pageData={page}
+      FooterComponent={Footer}
+      NavigationBarComponent={NavigationBar}
+    />
+  );
 }

@@ -1,0 +1,45 @@
+.NavigationBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  color: white;
+  padding: 20px 30px;
+  transition: padding 250ms, background-color 250ms;
+
+  font-weight: 500;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &.isScrolled {
+    padding: 10px 20px;
+    background-color: var(--dark);
+  }
+
+  & > div {
+    display: flex;
+    align-items: center;
+  }
+
+  .brand {
+    margin-right: 30px;
+    transition: transform 250ms;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+
+    & > svg:first-child {
+      margin-right: 4px;
+    }
+
+    & > svg:last-child {
+      margin-left: 4px;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { ComponentType, FC } from "react";
 import { TPageData } from "./Page.types";
 import { Section } from "../Section/Section";
 import { TSectionDefinition } from "../Section/Section.types";
@@ -6,11 +6,22 @@ import { TSectionDefinition } from "../Section/Section.types";
 interface IPageProps {
   pageData: TPageData;
   sectionDefinitions: TSectionDefinition[];
+  FooterComponent?: ComponentType<{ data: any }>;
+  NavigationBarComponent?: ComponentType<{ data: any }>;
 }
 
-export const Page: FC<IPageProps> = ({ pageData, sectionDefinitions }) => {
+export const Page: FC<IPageProps> = ({
+  pageData,
+  sectionDefinitions,
+  FooterComponent,
+  NavigationBarComponent,
+}) => {
   return (
     <div>
+      {pageData.navigationBar && NavigationBarComponent && (
+        <NavigationBarComponent data={pageData.navigationBar} />
+      )}
+
       {pageData.sections.map((sectionData) => {
         const sectionDefinition = sectionDefinitions.find(
           ({ name }) => sectionData.type === name
@@ -24,6 +35,10 @@ export const Page: FC<IPageProps> = ({ pageData, sectionDefinitions }) => {
           </Section>
         );
       })}
+
+      {pageData.footer && FooterComponent && (
+        <FooterComponent data={pageData.footer} />
+      )}
     </div>
   );
 };
