@@ -3,7 +3,10 @@ import { Metadata } from "next";
 import "./globals.css";
 import { Maven_Pro } from "next/font/google";
 
-import { injectCSSVariable } from "@/utils/cssVariables/cssVariables";
+import {
+  injectCSSVariables,
+  prepareColorVariablesForCSSInject,
+} from "@/utils/cssVariables/cssVariables";
 import { themeColors } from "@/theme/theme";
 
 const maven = Maven_Pro({ subsets: ["latin"] });
@@ -20,7 +23,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-      <body className={maven.className} style={injectCSSVariable(themeColors)}>
+      <body
+        className={maven.className}
+        style={injectCSSVariables({
+          ...prepareColorVariablesForCSSInject(themeColors),
+          "small-container-size": "800px",
+          "medium-container-size": "1000px",
+          "large-container-size": "1200px",
+        })}
+      >
         {children}
       </body>
     </html>

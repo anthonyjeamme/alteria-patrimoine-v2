@@ -1,7 +1,7 @@
 import { CSSProperties } from "react";
 import { Color } from "../color/color";
 
-export const injectCSSVariable = (
+export const injectCSSVariables = (
   variables: Record<string, string | number>
 ) => {
   const styles: Record<string, any> = {};
@@ -13,13 +13,13 @@ export const injectCSSVariable = (
   return styles as CSSProperties;
 };
 
-export const getCSSVariablesObject = (
+export const prepareColorVariablesForCSSInject = (
   colors: Record<string, string>
-): React.CSSProperties =>
+): Record<string, string> =>
   Object.entries(colors).reduce<Record<string, string>>(
     (acc, [name, value]) => {
-      acc[`--${name}`] = value;
-      acc[`--${name}-dec`] = Color.fromHex(value).toDecimals().join(", ");
+      acc[`${name}`] = value;
+      acc[`${name}-dec`] = Color.fromHex(value).toDecimals().join(", ");
       return acc;
     },
     {}

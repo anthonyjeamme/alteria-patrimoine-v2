@@ -38,8 +38,8 @@ const NavigationBar = () => {
       <div>
         <img
           {...className("brand")}
-          height={38}
-          width={138}
+          height={30}
+          width={109}
           src="https://res.cloudinary.com/anthony-jeamme-stuff/image/upload/v1639411627/alteria-white.svg"
           alt=""
         />

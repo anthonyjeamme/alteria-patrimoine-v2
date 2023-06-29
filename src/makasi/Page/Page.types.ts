@@ -1,4 +1,5 @@
 import { TSectionData } from "../Section/Section.types";
+import { TContentNode } from "../Content/Content.types";
 
 export type TPageData = {
   navigationBar?: TNavigationbarData;
@@ -11,5 +12,5 @@ export type TNavigationbarData = {
 };
 
 export type TFooterData = {
-  // TODO
+  content: TContentNode[];
 };

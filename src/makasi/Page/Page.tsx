@@ -1,12 +1,12 @@
 import { ComponentType, FC } from "react";
-import { TPageData } from "./Page.types";
+import { TFooterData, TPageData } from "./Page.types";
 import { Section } from "../Section/Section";
 import { TSectionDefinition } from "../Section/Section.types";
 
 interface IPageProps {
   pageData: TPageData;
   sectionDefinitions: TSectionDefinition[];
-  FooterComponent?: ComponentType<{ data: any }>;
+  FooterComponent?: ComponentType<{ data: TFooterData }>;
   NavigationBarComponent?: ComponentType<{ data: any }>;
 }
 

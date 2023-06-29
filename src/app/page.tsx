@@ -3,6 +3,7 @@ import { mongodbConnector } from "@/makasi/connectors/mongodbConnector";
 import { sections } from "@/sections/sections";
 import Footer from "@/components/Footer/Footer";
 import NavigationBar from "@/components/NavigationBar/NavigationBar";
+import { TFooterData } from "@/makasi/Page/Page.types";
 
 export default async function Home() {
   // TODO fetch data !
@@ -38,40 +39,212 @@ export default async function Home() {
   //   },
   // });
 
-  const footer = {
-    structure: [
-      { type: "brand" },
+  const footer: TFooterData = {
+    content: [
       {
-        type: "columns",
-        columns: { mobile: 1, tablet: 3, desktop: 3 },
-        content: [
+        type: "container",
+        size: "medium",
+        style: {
+          marginBottom: 60,
+        },
+        children: [
+          { type: "brand", style: { marginBottom: 20 } },
           {
-            title: "NOS SOLUTIONS",
-            items: [
+            type: "columns",
+            style: {
+              lineHeight: 2,
+            },
+            columns: { mobile: 1, tablet: 1, desktop: 3 },
+            children: [
               {
-                type: "internal-link",
-                pathname: "/nos-solutions/mutuelle-collective",
-                label: "Mutuelle collective",
+                type: "block",
+                children: [
+                  {
+                    type: "text",
+                    value: "NOS SOLUTIONS",
+                    style: {
+                      fontWeight: 500,
+                      marginBottom: 5,
+                    },
+                  },
+
+                  {
+                    type: "internal-link",
+                    pathname: "/nos-solutions/mutuelle-collective",
+                    text: "La Mutuelle Collective",
+                    style: {
+                      opacity: 0.7,
+                    },
+                  },
+                  {
+                    type: "internal-link",
+                    pathname: "/nos-solutions/prevoyance-",
+                    text: "La Prévoyance ",
+                    style: {
+                      opacity: 0.7,
+                    },
+                  },
+                  {
+                    type: "internal-link",
+                    pathname: "/nos-solutions/assurance-vie",
+                    text: "L'assurance vie",
+                    style: {
+                      opacity: 0.7,
+                    },
+                  },
+                  {
+                    type: "internal-link",
+                    pathname: "/nos-solutions/lassurance-emprunteur",
+                    text: "L’Assurance Emprunteur",
+                    style: {
+                      opacity: 0.7,
+                    },
+                  },
+                  {
+                    type: "internal-link",
+                    pathname: "/nos-solutions/mutuelle",
+                    text: "La Mutuelle",
+                    style: {
+                      opacity: 0.7,
+                    },
+                  },
+                  {
+                    type: "internal-link",
+                    pathname: "/nos-solutions/retraite-complementaire",
+                    text: "La Retraite complémentaire",
+                    style: {
+                      opacity: 0.7,
+                    },
+                  },
+                ],
+              },
+              {
+                type: "block",
+                children: [
+                  {
+                    type: "text",
+                    value: "NOS GUIDES",
+                    style: {
+                      fontWeight: 500,
+                      marginBottom: 5,
+                    },
+                  },
+
+                  {
+                    type: "internal-link",
+                    pathname:
+                      "/articles/prevoyance-ce-qui-a-change-le-1er-juillet-2021",
+                    text: "Prévoyance : Ce qui a changé le 1er Juillet 2021",
+                    style: {
+                      opacity: 0.7,
+                    },
+                  },
+                  {
+                    type: "internal-link",
+                    pathname:
+                      "/articles/ce-quil-faut-savoir-sur-lisr-linvestissement-responsable",
+                    text: "Ce qu’il faut savoir sur l’ISR : l’Investissement responsable",
+                    style: {
+                      opacity: 0.7,
+                    },
+                  },
+                  {
+                    type: "internal-link",
+                    pathname:
+                      "/articles/6-points-a-connaitre-sur-lassurance-vie",
+                    text: "6 points pour comprendre l’Assurance Vie",
+                    style: {
+                      opacity: 0.7,
+                    },
+                  },
+                  {
+                    type: "internal-link",
+                    pathname:
+                      "/articles/per-le-meilleur-outil-pour-preparer-sa-retraite",
+                    text: "PER: le meilleur outil pour préparer sa retraite ?",
+                    style: {
+                      opacity: 0.7,
+                    },
+                  },
+                  {
+                    type: "internal-link",
+                    pathname: "/articles/7-points-bien-choisir-sa-prevoyance",
+                    text: "7 points pour bien choisir sa prévoyance",
+                    style: {
+                      opacity: 0.7,
+                    },
+                  },
+                  {
+                    type: "internal-link",
+                    pathname:
+                      "/articles/pourquoi-vous-devez-changer-dassurance-emprunteur-des-aujourdhui",
+                    text: "Pourquoi vous devez changer d’assurance emprunteur dès aujourd’hui",
+                    style: {
+                      opacity: 0.7,
+                    },
+                  },
+                ],
+              },
+              {
+                type: "block",
+                children: [
+                  {
+                    type: "text",
+                    value: "EN SAVOIR PLUS",
+                    style: {
+                      fontWeight: 500,
+                      marginBottom: 5,
+                    },
+                  },
+
+                  {
+                    type: "internal-link",
+                    pathname: "/qui-sommes-nous",
+                    text: "Qui sommes-nous ?",
+                    style: {
+                      opacity: 0.7,
+                    },
+                  },
+                  {
+                    type: "text",
+                    value: "Nous contacter",
+                    style: {
+                      opacity: 0.7,
+                    },
+                  },
+                ],
               },
             ],
           },
+        ],
+      },
+      {
+        type: "container",
+        size: "large",
+        children: [
           {
-            title: "NOS GUIDES",
-            items: [
+            type: "spread-block",
+            children: [
               {
-                type: "internal-link",
-                pathname: "/nos-solutions/mutuelle-collective",
-                label: "Mutuelle collective",
+                type: "block",
+                style: { display: "flex", gap: 20 },
+                children: [
+                  {
+                    type: "internal-link",
+                    pathname: "/mentions-legales",
+                    text: "Mentions Légales",
+                  },
+                  {
+                    type: "internal-link",
+                    pathname: "/politique-confidentialite",
+                    text: "Politique de Confidentialité",
+                  },
+                ],
               },
-            ],
-          },
-          {
-            title: "EN SAVOIR PLUS",
-            items: [
               {
-                type: "internal-link",
-                pathname: "/nos-solutions/mutuelle-collective",
-                label: "Mutuelle collective",
+                type: "text",
+                value:
+                  "Alteria Assurances et Patrimoine © - Tous droits réservés",
               },
             ],
           },

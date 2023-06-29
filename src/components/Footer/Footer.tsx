@@ -1,35 +1,18 @@
 import { classNameModule } from "@/utils/className/className";
 import styles from "./Footer.module.scss";
-import Container from "../common/Container/Container";
+import Content from "@/makasi/Content/Content";
+import { FC } from "react";
+import { TFooterData } from "@/makasi/Page/Page.types";
 const className = classNameModule(styles);
 
-const Footer = () => {
+interface IFooterProps {
+  data: TFooterData;
+}
+
+const Footer: FC<IFooterProps> = ({ data }) => {
   return (
     <div {...className("Footer")}>
-      <Container>
-        <img
-          {...className("brand")}
-          height={38}
-          width={138}
-          src="https://res.cloudinary.com/anthony-jeamme-stuff/image/upload/v1639411627/alteria-white.svg"
-          alt=""
-        />
-
-        <div {...className("columns")}>
-          <div>columns</div>
-
-          <div>columns</div>
-          <div>columns</div>
-        </div>
-      </Container>
-      <Container large>
-        <div {...className("bottom")}>
-          <div>Mentions Légales - Politique de Confidentialité</div>
-          <div {...className("copyright")}>
-            Alteria Assurances et Patrimoine <sup>©</sup> - Tous droits réservés
-          </div>
-        </div>
-      </Container>
+      <Content nodes={data.content} />
     </div>
   );
 };

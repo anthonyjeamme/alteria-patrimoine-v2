@@ -50,7 +50,7 @@ const transformList = (list: TClassNameList): string[] => {
 
 export type TClassNameList = TClassNameItem[];
 
-type TClassNameItem = string | { [key: string]: boolean | string };
+type TClassNameItem = string | { [key: string]: boolean | string | number };
 
 export const mergeClassNames = (
   a: string | { className: string } | undefined,
