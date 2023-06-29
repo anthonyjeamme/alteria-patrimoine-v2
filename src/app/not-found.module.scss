@@ -1,0 +1,9 @@
+.NotFoundPage {
+  //
+  height: 100vh;
+  display: flex;
+
+  & > div {
+    margin: auto;
+  }
+}
