@@ -38,12 +38,54 @@ export default async function Home() {
   //   },
   // });
 
+  const footer = {
+    structure: [
+      { type: "brand" },
+      {
+        type: "columns",
+        columns: { mobile: 1, tablet: 3, desktop: 3 },
+        content: [
+          {
+            title: "NOS SOLUTIONS",
+            items: [
+              {
+                type: "internal-link",
+                pathname: "/nos-solutions/mutuelle-collective",
+                label: "Mutuelle collective",
+              },
+            ],
+          },
+          {
+            title: "NOS GUIDES",
+            items: [
+              {
+                type: "internal-link",
+                pathname: "/nos-solutions/mutuelle-collective",
+                label: "Mutuelle collective",
+              },
+            ],
+          },
+          {
+            title: "EN SAVOIR PLUS",
+            items: [
+              {
+                type: "internal-link",
+                pathname: "/nos-solutions/mutuelle-collective",
+                label: "Mutuelle collective",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  };
+
   const page = await mongodbConnector.getPage("/");
 
   return (
     <Page
       sectionDefinitions={sections}
-      pageData={page}
+      pageData={{ ...page, footer }}
       FooterComponent={Footer}
       NavigationBarComponent={NavigationBar}
     />
