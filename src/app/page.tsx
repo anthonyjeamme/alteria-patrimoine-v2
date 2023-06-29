@@ -1,5 +1,3 @@
-"use server";
-
 import { Page } from "@/makasi";
 import { mongodbConnector } from "@/makasi/connectors/mongodbConnector";
 import { sections } from "@/sections/sections";
