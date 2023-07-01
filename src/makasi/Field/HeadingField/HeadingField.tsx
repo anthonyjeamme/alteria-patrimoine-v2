@@ -21,5 +21,7 @@ export const Heading: FC<TFieldProps & { heading: 1 | 2 | 3 | 4 }> = ({
     return <HeadingFieldEdition field={field} heading={heading} />;
   }
 
-  return createElement(`h${heading}`, {}, fieldData.value);
+  return createElement(`h${heading}`, {
+    dangerouslySetInnerHTML: { __html: fieldData.value },
+  });
 };

@@ -1,0 +1,19 @@
+.ToolbarPlugin {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 5px);
+  display: flex;
+  gap: 5px;
+
+  button {
+    cursor: pointer;
+    height: 36px;
+    width: 36px;
+    background-color: var(--light);
+    border-radius: 5px;
+    display: flex;
+    & > svg {
+      margin: auto;
+    }
+  }
+}

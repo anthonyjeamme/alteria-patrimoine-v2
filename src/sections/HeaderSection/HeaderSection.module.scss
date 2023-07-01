@@ -1,5 +1,5 @@
 .HeaderSection {
-  min-height: 60vh;
+  min-height: 80vh;
   display: flex;
   text-align: center;
   background-size: cover;
@@ -7,10 +7,11 @@
 
   h1 {
     font-size: 46px;
-    font-weight: 500;
+    font-weight: 700;
     margin-bottom: 30px;
-    max-width: 700px;
+    max-width: 740px;
     margin: 0 auto 30px auto;
+    text-shadow: 0 0 20px rgba(var(--dark-dec), 0.3);
   }
 
   .subtitle {

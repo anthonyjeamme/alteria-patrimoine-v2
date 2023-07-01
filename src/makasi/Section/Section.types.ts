@@ -10,7 +10,11 @@ export type TSectionData = {
 
 export type TSectionDefinition = {
   name: string;
-  Component: ComponentType<TSectionProps>;
+  Component: ComponentType<TSectionProps<any, any>>;
+  getData?: (params?: any) => Promise<any>;
 };
 
-export type TSectionProps = { params: any };
+export type TSectionProps<Params = unknown, Data = unknown> = {
+  params: Params;
+  data: Data;
+};

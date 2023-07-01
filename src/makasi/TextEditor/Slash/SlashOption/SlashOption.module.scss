@@ -1,0 +1,49 @@
+.SlashOption {
+  width: 100%;
+  padding: 7px;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 250ms;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+
+  & > .icon {
+    height: 40px;
+    width: 40px;
+    border: 1px solid rgba(var(--dark-dec), 0.1);
+    display: flex;
+    margin-right: 10px;
+    border-radius: 5px;
+    background-color: white;
+
+    & > svg {
+      margin: auto;
+    }
+  }
+
+  & > .text {
+    display: block;
+    padding-right: 10px;
+    line-height: 1.1;
+
+    & > .label {
+      display: block;
+    }
+
+    & > .description {
+      display: block;
+      font-size: 14px;
+      color: rgba(var(--dark-dec), 0.6);
+    }
+  }
+
+  &.isSelected {
+    background-color: var(--light);
+  }
+
+  &:hover {
+    background-color: var(--light);
+  }
+}

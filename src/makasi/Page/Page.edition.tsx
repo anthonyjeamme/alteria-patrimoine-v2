@@ -23,7 +23,10 @@ export const PageEdition: FC<IPageProps> = ({
 
         return (
           <SectionEdition key={sectionData.id} sectionData={sectionData}>
-            <sectionDefinition.Component params={sectionData.params} />
+            <sectionDefinition.Component
+              params={sectionData.params}
+              data={null}
+            />
           </SectionEdition>
         );
       })}

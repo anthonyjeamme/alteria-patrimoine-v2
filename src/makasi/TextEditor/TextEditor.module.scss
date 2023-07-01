@@ -1,0 +1,67 @@
+.TextEditor {
+  position: relative;
+
+  & > [data-lexical-editor="true"] {
+    padding: 20px;
+    border: 1px solid rgba(var(--dark-dec), 0.1);
+    border-radius: 5px;
+    outline: none;
+
+    p {
+      margin: 10px 0;
+      &:first-child {
+        margin-top: 0;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    ul,
+    ol {
+      margin: 10px 30px;
+
+      & > li {
+        margin: 5px 0;
+
+        &:first-child {
+          margin-top: 0;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    blockquote {
+      padding: 10px 20px;
+      position: relative;
+      margin: 10px 0;
+      line-height: 1.3;
+
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 5px;
+        border-radius: 5px;
+        background-color: var(--primary);
+      }
+    }
+  }
+
+  .PlaceHolder {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}

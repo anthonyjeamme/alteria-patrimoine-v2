@@ -6,7 +6,9 @@ import { FC } from "react";
 import { TSectionProps } from "@/makasi/Section/Section.types";
 const className = classNameModule(styles);
 
-const HeaderSection: FC<TSectionProps> = ({ params }) => {
+const HeaderSection: FC<TSectionProps<{ backgroundImage: string }>> = ({
+  params,
+}) => {
   return (
     <div
       {...className("HeaderSection")}

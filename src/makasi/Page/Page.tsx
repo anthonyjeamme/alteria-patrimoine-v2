@@ -10,12 +10,14 @@ interface IPageProps {
   NavigationBarComponent?: ComponentType<{ data: any }>;
 }
 
-export const Page: FC<IPageProps> = ({
+export const Page: FC<IPageProps> = async ({
   pageData,
   sectionDefinitions,
   FooterComponent,
   NavigationBarComponent,
 }) => {
+  const sectionsData = await loadSectionData(pageData, sectionDefinitions);
+
   return (
     <div>
       {pageData.navigationBar && NavigationBarComponent && (
@@ -31,7 +33,10 @@ export const Page: FC<IPageProps> = ({
 
         return (
           <Section key={sectionData.id} sectionData={sectionData}>
-            <sectionDefinition.Component params={sectionData.params} />
+            <sectionDefinition.Component
+              params={sectionData.params}
+              data={sectionsData[sectionData.id]}
+            />
           </Section>
         );
       })}
@@ -41,4 +46,22 @@ export const Page: FC<IPageProps> = ({
       )}
     </div>
   );
+};
+
+const loadSectionData = async (
+  pageData: TPageData,
+  sectionDefinitions: TSectionDefinition[]
+) => {
+  const data: Record<string, any> = {};
+
+  for (const section of pageData.sections) {
+    const definition = sectionDefinitions.find(
+      ({ name }) => section.type === name
+    );
+
+    if (definition?.getData) {
+      data[section.id] = await definition.getData(section.params);
+    }
+  }
+  return data;
 };
