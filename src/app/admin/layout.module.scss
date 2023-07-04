@@ -1,0 +1,20 @@
+.AdminLayout {
+  display: flex;
+  height: 100vh;
+  color: var(--dark);
+
+  & > .content {
+    flex: 1;
+    background-color: var(--light);
+    position: relative;
+
+    & > div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow-y: auto;
+    }
+  }
+}

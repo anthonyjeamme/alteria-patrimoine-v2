@@ -51,3 +51,12 @@
     transform: scaleY(-1);
   }
 }
+
+.Wave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  width: 100%;
+  bottom: 100%;
+}

@@ -10,6 +10,7 @@ const className = classNameModule(styles);
 const HomeSection: FC<
   TSectionProps<{
     style: CSSProperties;
+    topWave?: boolean;
     topCurve?: boolean;
     bottomCurve?: boolean;
   }>
@@ -29,6 +30,10 @@ const HomeSection: FC<
         />
       )}
 
+      {params?.topWave && (
+        <Wave color={params?.style.backgroundColor || "white"} />
+      )}
+
       <Container>
         <Heading field="title" heading={2} />
       </Container>
@@ -39,6 +44,21 @@ const HomeSection: FC<
 };
 
 export default HomeSection;
+
+const Wave: FC<{ color: string }> = ({ color }) => (
+  <svg
+    {...className("Wave")}
+    viewBox="0 -5 1400 45"
+    height={20}
+    width={"100%"}
+    preserveAspectRatio="none"
+  >
+    <path
+      d="M564.5 32.337C390 16.6305 201.5 -4.42482 0 27.173V51H1400V0C1151.5 45.816 739 48.0435 564.5 32.337Z"
+      fill={color}
+    />
+  </svg>
+);
 
 const Curve: FC<{ color: string; position: "top" | "bottom" }> = ({
   color,

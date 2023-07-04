@@ -1,0 +1,33 @@
+.PageGroup {
+  margin: 40px 0;
+
+  & > header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & > .name {
+      margin-bottom: 10px;
+      background-color: white;
+      border-radius: 5px;
+      padding: 10px;
+
+      & > span {
+        display: inline-block;
+        background-color: rgba(var(--primary-dec), 0.1);
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-weight: 500;
+        font-size: 14px;
+      }
+    }
+  }
+
+  & > .list {
+    padding: 10px 0 10px 20px;
+    border-left: 1px solid rgba(var(--dark-dec), 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}

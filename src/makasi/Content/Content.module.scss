@@ -36,6 +36,21 @@
   }
 }
 
+.SliderNode {
+  overflow-x: auto;
+  padding: 20px;
+  display: flex;
+
+  &::-webkit-scrollbar {
+    height: 0;
+  }
+
+  & > div {
+    display: flex;
+    gap: 20px;
+  }
+}
+
 .InternalLinkNode {
   display: flex;
 }

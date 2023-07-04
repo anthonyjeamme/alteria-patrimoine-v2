@@ -1,0 +1,43 @@
+.PageItem {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  padding-right: 10px;
+
+  & > .path {
+    flex: 1;
+    padding: 10px;
+    transition: box-shadow 250ms;
+    margin-right: 10px;
+
+    & > span {
+      display: inline-block;
+      background-color: rgba(var(--primary-dec), 0.1);
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-weight: 500;
+      font-size: 14px;
+    }
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    transition: color 250ms;
+    color: rgba(var(--dark-dec), 0.4);
+
+    height: 35px;
+    width: 35px;
+    margin-left: 5px;
+
+    &:hover {
+      color: var(--dark);
+    }
+
+    & > svg {
+      margin: auto;
+    }
+  }
+}

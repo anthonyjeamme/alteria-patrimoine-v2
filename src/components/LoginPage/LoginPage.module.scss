@@ -1,0 +1,96 @@
+.LoginPage {
+  background-color: var(--light);
+  height: 100vh;
+  display: flex;
+  color: var(--dark);
+
+  & > div {
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    width: 350px;
+    box-shadow: 0 20px 60px rgba(var(--dark-dec), 0.05);
+    position: relative;
+
+    .BackButton {
+      position: absolute;
+      top: 10px;
+      right: calc(100% + 20px);
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      color: rgba(var(--dark-dec), 0.6);
+      transition: color 250ms, background-color 250ms;
+
+      border-radius: 5px;
+
+      &:hover {
+        color: var(--dark);
+        background-color: rgba(var(--dark-dec), 0.05);
+      }
+
+      & > svg {
+        margin-right: 5px;
+      }
+    }
+
+    & > form {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        display: block;
+        padding-bottom: 5px;
+        color: rgba(var(--dark-dec), 0.6);
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      input {
+        height: 40px;
+        padding: 0 10px;
+        border: 1px solid rgba(var(--dark-dec), 0.1);
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+
+      button {
+        height: 40px;
+        margin-top: 10px;
+        background-color: var(--primary);
+        color: white;
+        font-weight: 500;
+        border-radius: 5px;
+      }
+    }
+  }
+
+  hr {
+    height: 1px;
+    background-color: rgba(var(--dark-dec), 0.1);
+    border: 0;
+    margin: 20px 0;
+  }
+
+  .methods {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    & > button {
+      padding: 10px;
+      font-size: 20px;
+      opacity: 0.6;
+      transition: opacity 250ms;
+      background-color: var(--light);
+      display: flex;
+      border-radius: 5px;
+      border: 1px solid rgba(var(--dark-dec), 0.1);
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}

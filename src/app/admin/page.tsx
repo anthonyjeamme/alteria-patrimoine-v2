@@ -1,5 +1,7 @@
-const Page = () => {
-  return <main>TODO</main>;
+import AdminGeneral from "@/admin/AdminGeneral/AdminGeneral";
+
+const Page = async () => {
+  return <AdminGeneral />;
 };
 
 export default Page;

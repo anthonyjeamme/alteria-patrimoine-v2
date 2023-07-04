@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react";
 import { TPageData } from "./Page.types";
 import { SectionEdition } from "../Section/Section.edition";
@@ -6,14 +8,16 @@ import { TSectionDefinition } from "../Section/Section.types";
 interface IPageProps {
   pageData: TPageData;
   sectionDefinitions: TSectionDefinition[];
+  onChange: (pageData: TPageData) => void;
 }
 
 export const PageEdition: FC<IPageProps> = ({
   pageData,
   sectionDefinitions,
+  onChange,
 }) => {
   return (
-    <div>
+    <>
       {pageData.sections.map((sectionData) => {
         const sectionDefinition = sectionDefinitions.find(
           ({ name }) => sectionData.type === name
@@ -22,7 +26,18 @@ export const PageEdition: FC<IPageProps> = ({
         if (!sectionDefinition) return null;
 
         return (
-          <SectionEdition key={sectionData.id} sectionData={sectionData}>
+          <SectionEdition
+            key={sectionData.id}
+            sectionData={sectionData}
+            handleUpdate={(data) => {
+              onChange({
+                ...pageData,
+                sections: pageData.sections.map((section) =>
+                  section.id === data.id ? data : section
+                ),
+              });
+            }}
+          >
             <sectionDefinition.Component
               params={sectionData.params}
               data={null}
@@ -30,6 +45,8 @@ export const PageEdition: FC<IPageProps> = ({
           </SectionEdition>
         );
       })}
-    </div>
+    </>
   );
 };
+
+export default PageEdition;

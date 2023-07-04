@@ -1,5 +1,5 @@
 const Page = () => {
-  return <main>TODO</main>;
+  return <main>ARTICLE PAGE</main>;
 };
 
 export default Page;

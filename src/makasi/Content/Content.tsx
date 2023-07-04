@@ -1,5 +1,3 @@
-"use client";
-
 import { classNameModule } from "@/utils/className/className";
 import styles from "./Content.module.scss";
 import { CSSProperties, FC, ReactNode } from "react";
@@ -19,54 +17,32 @@ import {
   TContentInternalLinkNode,
   TListItemNode,
   TDividerNode,
+  TContentComponentNode,
+  TImageNode,
+  TSliderNode,
 } from "./Content.types";
 import Link from "next/link";
+import Node from "./Node/Node";
 const className = classNameModule(styles);
 
 interface IContentProps {
   nodes: TContentNode[];
+  components?: any[];
 }
 
-const Content: FC<IContentProps> = ({ nodes }) => {
+const Content: FC<IContentProps> = ({ nodes, components }) => {
   return (
     <div {...className("Content")}>
       {nodes.map((node, index) => (
-        <Node node={node} key={index} />
+        <Node node={node} key={index} components={components} />
       ))}
     </div>
   );
 };
 
-const Node: FC<{ node: TContentNode }> = ({ node }) => {
-  switch (node.type) {
-    case "paragraph":
-      return <ParagraphNode node={node} />;
-    case "block":
-      return <BlockNode node={node} />;
-    case "box":
-      return <BoxNode node={node} />;
-    case "list":
-      return <ListNode node={node} />;
-    case "brand":
-      return <BrandNode node={node} />;
-    case "columns":
-      return <ColumnsNode node={node} />;
-    case "container":
-      return <ContainerNode node={node} />;
-    case "internal-link":
-      return <InternalLinkNode node={node} />;
-    case "button":
-      return <ButtonNode node={node} />;
-    case "text":
-      return <TextNode node={node} />;
-    case "spread-block":
-      return <SpreadBlockNode node={node} />;
-    case "divider":
-      return <DividerNode node={node} />;
-    default:
-      return null;
-  }
-};
+const ImageNode: FC<{ node: TImageNode }> = ({ node }) => (
+  <img src={node.url} />
+);
 
 const DividerNode: FC<{ node: TDividerNode }> = ({ node }) => (
   <hr {...className("DividerNode")} />
@@ -78,6 +54,19 @@ const ParagraphNode: FC<{ node: TParagraphNode }> = ({ node }) => (
       <Node node={child} key={index} />
     ))}
   </p>
+);
+
+const SliderNode: FC<{ node: TSliderNode; components?: any[] }> = ({
+  node,
+  components,
+}) => (
+  <div {...className("SliderNode")} style={node.style}>
+    <div>
+      {node.children.map((child, index) => (
+        <Node node={child} key={index} components={components} />
+      ))}
+    </div>
+  </div>
 );
 
 const BoxNode: FC<{ node: TBoxNode }> = ({ node }) => (
@@ -168,7 +157,10 @@ const ActionWrapper: FC<{ action: TAction; children: ReactNode }> = ({
   return children;
 };
 
-const ColumnsNode: FC<{ node: TContentColumnsNode }> = ({ node }) => (
+const ColumnsNode: FC<{ node: TContentColumnsNode; components?: any[] }> = ({
+  node,
+  components,
+}) => (
   <div
     {...className("ColumnsNode")}
     style={
@@ -181,7 +173,7 @@ const ColumnsNode: FC<{ node: TContentColumnsNode }> = ({ node }) => (
     }
   >
     {node.children.map((child, index) => (
-      <Node node={child} key={index} />
+      <Node node={child} key={index} components={components} />
     ))}
   </div>
 );

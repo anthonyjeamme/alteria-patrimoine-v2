@@ -1,0 +1,80 @@
+@keyframes SideModalEntry {
+  from {
+    opacity: 0;
+    transform: translateX(50%);
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+@keyframes OverlayEntry {
+  from {
+    background-color: rgba(var(--dark-dec), 0);
+  }
+  to {
+    background-color: rgba(var(--dark-dec), 0.9);
+  }
+}
+
+.SideModal {
+  //
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 10;
+  background-color: rgba(var(--dark-dec), 0.9);
+  animation: OverlayEntry 500ms;
+
+  & > div {
+    background-color: white;
+    width: 450px;
+    animation: SideModalEntry 400ms;
+    animation-fill-mode: both;
+    animation-delay: 100ms;
+    display: flex;
+    flex-direction: column;
+
+    & > header {
+      padding: 20px;
+      display: flex;
+      justify-content: flex-end;
+      border-bottom: 1px solid rgba(var(--dark-dec), 0.1);
+
+      & > button {
+        opacity: 0.4;
+        transition: opacity 250ms;
+        font-size: 22px;
+        display: flex;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
+    & > .content {
+      flex: 1;
+      overflow-y: scroll;
+      margin-right: 5px;
+
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(var(--dark-dec), 0.2);
+        border-radius: 4px;
+      }
+    }
+  }
+}

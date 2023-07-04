@@ -10,9 +10,11 @@ interface IFooterProps {
 }
 
 const Footer: FC<IFooterProps> = ({ data }) => {
+  if (!data?.nodes) return null;
+
   return (
     <div {...className("Footer")}>
-      <Content nodes={data.content} />
+      <Content nodes={data.nodes} />
     </div>
   );
 };

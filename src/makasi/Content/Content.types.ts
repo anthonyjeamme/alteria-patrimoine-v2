@@ -1,8 +1,11 @@
 import { CSSProperties } from "react";
 
 export type TContentNode =
+  | TImageNode
   | TContentContainerNode
+  | TContentComponentNode
   | TContentBrandNode
+  | TSliderNode
   | TButtonNode
   | TDividerNode
   | TBoxNode
@@ -15,12 +18,31 @@ export type TContentNode =
   | TContentInternalLinkNode
   | TContentSpreadBlockNode;
 
+export type TImageNode = {
+  type: "image";
+  url: string;
+};
+
+export type TSliderNode = {
+  type: "slider";
+  children: TContentNode[];
+  style?: CSSProperties;
+};
+
 export type TContentContainerNode = {
   type: "container";
   maxWidth?: number;
   size: "small" | "medium" | "large";
   children: TContentNode[];
   style?: CSSProperties;
+};
+
+export type TContentComponentNode = {
+  type: "component";
+  componentId: string;
+  componentData: any;
+  componentParams: any;
+  children?: TContentNode[];
 };
 
 export type TContentBrandNode = { type: "brand"; style?: CSSProperties };

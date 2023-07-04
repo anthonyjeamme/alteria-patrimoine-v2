@@ -5,14 +5,22 @@ import { SectionContext } from "./Section.context";
 interface ISectionProps {
   children: ReactNode;
   sectionData: TSectionData;
+  handleUpdate: (data: TSectionData) => void;
 }
 
 export const SectionEdition: FC<ISectionProps> = ({
   sectionData,
   children,
+  handleUpdate,
 }) => {
   return (
-    <SectionContext edition={true} sectionData={sectionData}>
+    <SectionContext
+      edition={true}
+      sectionData={sectionData}
+      handleUpdate={(data) => {
+        handleUpdate(data);
+      }}
+    >
       {children}
     </SectionContext>
   );

@@ -1,0 +1,64 @@
+.AdminSidebar {
+  padding: 30px 30px 20px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid rgba(var(--dark-dec), 0.1);
+  user-select: none;
+  position: relative;
+  z-index: 1;
+
+  & > div {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    position: relative;
+
+    button {
+      height: 40px;
+      width: 220px;
+      border-radius: 5px;
+      padding: 0 20px;
+      transition: border-color 250ms, color 250ms, background-color 250ms;
+      display: flex;
+      align-items: center;
+      color: rgba(var(--dark-dec), 0.6);
+      position: relative;
+      z-index: 10;
+
+      &.isActive {
+        color: rgba(var(--dark-dec), 1);
+        & > svg {
+          color: var(--primary);
+        }
+      }
+
+      & > svg {
+        margin-right: 15px;
+        font-size: 19px;
+        transition: color 250ms;
+      }
+
+      &:hover {
+        border-color: rgba(var(--dark-dec), 0.3);
+        color: rgba(var(--dark-dec), 1);
+      }
+    }
+  }
+
+  .hover {
+    position: absolute;
+    height: 30px;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-color: var(--light);
+    pointer-events: none;
+    transition: height 250ms, translate 250ms;
+    border-radius: 5px;
+  }
+
+  a {
+    text-decoration: none !important;
+  }
+}

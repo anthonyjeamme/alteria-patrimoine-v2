@@ -1,0 +1,11 @@
+.AdminArticles {
+  width: 1000px;
+  margin: 0 auto;
+  padding: 60px 20px;
+
+  .articles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px 20px;
+  }
+}

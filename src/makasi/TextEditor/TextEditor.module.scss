@@ -1,9 +1,6 @@
 .TextEditor {
-  position: relative;
-
+  // position: relative;
   & > [data-lexical-editor="true"] {
-    padding: 20px;
-    border: 1px solid rgba(var(--dark-dec), 0.1);
     border-radius: 5px;
     outline: none;
 
@@ -57,7 +54,7 @@
   .PlaceHolder {
     position: absolute;
     top: 0;
-    left: 20px;
+    left: 0;
     bottom: 0;
     display: flex;
     align-items: center;

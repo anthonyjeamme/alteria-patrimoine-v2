@@ -1,0 +1,18 @@
+.LegalHeaderSection {
+  background-color: var(--dark);
+  color: white;
+  padding: 200px 0 40px 0;
+  text-align: center;
+  position: relative;
+}
+
+.Curve {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  height: 20px;
+  width: 100%;
+  top: 100%;
+  transform: scaleY(-1);
+}

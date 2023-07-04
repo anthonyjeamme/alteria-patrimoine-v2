@@ -6,6 +6,7 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { TableCellNode, TableNode, TableRowNode } from "@lexical/table";
 import { ListItemNode, ListNode } from "@lexical/list";
@@ -14,16 +15,26 @@ import { AutoLinkNode, LinkNode } from "@lexical/link";
 import { classNameModule } from "@/utils/className/className";
 import styles from "./TextEditor.module.scss";
 import Toolbar from "./Toolbar/Toolbar";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Slash from "./Slash/Slash";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { SerializedEditorState, SerializedLexicalNode } from "lexical";
+import { cleanData } from "./TextEditor.utils";
 const className = classNameModule(styles);
 
 function onError(error: any) {
   console.error(error);
 }
 
-export function TextEditor() {
+interface ITextEditorProps {
+  value: any;
+  onChange: (value: any) => void;
+}
+
+export function TextEditor({ value, onChange }: ITextEditorProps) {
   const [hasFocus, setHasFocus] = useState(false);
+
+  const dataRef = useRef<SerializedEditorState<SerializedLexicalNode>>();
 
   return (
     <div
@@ -33,12 +44,15 @@ export function TextEditor() {
       }}
       onBlur={() => {
         setHasFocus(false);
+
+        if (dataRef.current) onChange(cleanData(dataRef.current));
       }}
     >
       <LexicalComposer
         initialConfig={{
           namespace: "editor",
           onError,
+          editorState: JSON.stringify(value),
           nodes: [
             HeadingNode,
             ListNode,
@@ -52,6 +66,11 @@ export function TextEditor() {
           ],
         }}
       >
+        <OnChangePlugin
+          onChange={(editorState) => {
+            dataRef.current = editorState.toJSON();
+          }}
+        />
         <Toolbar hasFocus={hasFocus} />
         <RichTextPlugin
           contentEditable={<ContentEditable />}
@@ -64,3 +83,19 @@ export function TextEditor() {
     </div>
   );
 }
+
+const Export = () => {
+  const [editor] = useLexicalComposerContext();
+
+  return (
+    <button
+      onClick={() => {
+        console.log(editor.getEditorState().toJSON());
+      }}
+    >
+      Export
+    </button>
+  );
+};
+
+export default TextEditor;
