@@ -13,7 +13,7 @@ const HeaderSection: FC<TSectionProps<{ backgroundImage: string }>> = ({
     <div
       {...className("HeaderSection")}
       style={{
-        backgroundImage: `url(${params.backgroundImage})`,
+        backgroundImage: `url(${params?.backgroundImage})`,
       }}
     >
       <div>

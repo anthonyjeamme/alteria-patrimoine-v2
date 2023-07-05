@@ -29,9 +29,9 @@ const PageGroup: FC<IPageGroupProps> = ({ group }) => {
 
       <div {...className("list")}>
         {group.pages
-          .sort((a, b) => a.path.localeCompare(b.path))
+          .sort((a, b) => a.slug.localeCompare(b.slug))
           .map((page) => (
-            <PageItem key={page.id} path={page.path} />
+            <PageItem key={page.id} page={page} />
           ))}
       </div>
     </div>

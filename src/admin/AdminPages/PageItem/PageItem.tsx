@@ -8,21 +8,22 @@ import { FC } from "react";
 import { Gear, Pencil } from "@phosphor-icons/react";
 
 import { usePageEditionModal } from "../PageEditionModal/PageEditionModal";
+import { TPagePath } from "@/makasi/Page/Page.types";
 const className = classNameModule(styles);
 
 interface IPageItemProps {
-  path: string;
+  page: Partial<TPagePath>;
 }
 
-const PageItem: FC<IPageItemProps> = ({ path }) => {
+const PageItem: FC<IPageItemProps> = ({ page }) => {
   const pageEditionModal = usePageEditionModal();
 
   return (
     <div {...className("PageItem")}>
       <div {...className("path")}>
-        <span>{path}</span>
+        <span>{page.slug}</span>
       </div>
-      <Link href={`/edition/${path}`}>
+      <Link href={`/edition/${page.slug}`}>
         <button>
           <Pencil weight="duotone" />
         </button>
@@ -31,6 +32,7 @@ const PageItem: FC<IPageItemProps> = ({ path }) => {
         onClick={() => {
           pageEditionModal.open({
             create: false,
+            pageData: page,
           });
         }}
       >

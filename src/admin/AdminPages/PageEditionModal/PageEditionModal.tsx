@@ -12,6 +12,7 @@ import Textarea from "@/admin/common/Textarea/Textarea";
 import { Trash } from "@phosphor-icons/react";
 import Checkbox from "@/admin/common/Checkbox/Checkbox";
 import { TPageData } from "@/makasi/Page/Page.types";
+import { useAdminPagesContext } from "../AdminPagesContext/AdminPagesContext";
 const className = classNameModule(styles);
 
 export type TPageEditionPayload =
@@ -20,7 +21,7 @@ export type TPageEditionPayload =
     }
   | {
       create: false;
-      pageData: TPageData;
+      pageData: Partial<TPageData>;
     };
 
 const pageEditionModalContext =
@@ -37,7 +38,14 @@ export const PageEditionModalContext: FC<{ children: ReactNode }> = ({
   return (
     <pageEditionModalContext.Provider value={sideModal}>
       <SideModal {...sideModal}>
-        {sideModal.payload && <EditPage payload={sideModal.payload} />}
+        {sideModal.payload && (
+          <EditPage
+            payload={sideModal.payload}
+            handleClose={() => {
+              sideModal.close();
+            }}
+          />
+        )}
       </SideModal>
 
       {children}
@@ -45,22 +53,23 @@ export const PageEditionModalContext: FC<{ children: ReactNode }> = ({
   );
 };
 
-const EditPage: FC<{ payload: TPageEditionPayload }> = ({ payload }) => {
-  const [pageData, setPageData] = useState<TPageData>(
+const EditPage: FC<{
+  payload: TPageEditionPayload;
+  handleClose: () => void;
+}> = ({ payload, handleClose }) => {
+  const [pageData, setPageData] = useState<Partial<TPageData>>(
     payload.create
       ? {
           id: "",
-          path: "",
+          slug: "",
           metadata: { title: "", description: "" },
           sections: [],
+          public: false,
         }
       : payload.pageData
   );
-  const [path, setPath] = useState("");
-  const [description, setDescription] = useState("");
-  const [sitemap, setSitemap] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [type, setType] = useState<"empty" | "legal">("empty");
+  const [type, setType] = useState<string>("empty");
+  const { deletePage, createPage, updatePage } = useAdminPagesContext();
 
   return (
     <div {...className("EditPage")}>
@@ -83,9 +92,9 @@ const EditPage: FC<{ payload: TPageEditionPayload }> = ({ payload }) => {
       <div {...className("Field")}>
         <div {...className("label")}>Chemin</div>
         <Input
-          value={pageData.path}
-          onChange={(path) => {
-            setPageData({ ...pageData, path });
+          value={pageData.slug || ""}
+          onChange={(slug) => {
+            setPageData({ ...pageData, slug });
           }}
         />
       </div>
@@ -112,11 +121,12 @@ const EditPage: FC<{ payload: TPageEditionPayload }> = ({ payload }) => {
         <div {...className("Field")}>
           <div {...className("label")}>Titre</div>
           <Input
-            value={pageData.metadata.title}
+            value={pageData.metadata?.title || ""}
             onChange={(title) => {
               setPageData({
                 ...pageData,
                 metadata: {
+                  description: "",
                   ...pageData.metadata,
                   title,
                 },
@@ -127,11 +137,12 @@ const EditPage: FC<{ payload: TPageEditionPayload }> = ({ payload }) => {
         <div {...className("Field")}>
           <div {...className("label")}>Description</div>
           <Textarea
-            value={pageData.metadata.description}
+            value={pageData.metadata?.description || ""}
             onChange={(description) => {
               setPageData({
                 ...pageData,
                 metadata: {
+                  title: "",
                   ...pageData.metadata,
                   description,
                 },
@@ -143,32 +154,42 @@ const EditPage: FC<{ payload: TPageEditionPayload }> = ({ payload }) => {
 
       <div>
         <button
-          onClick={() => {
+          onClick={async () => {
             const { id, ...data } = pageData;
 
-            fetch("/api/makasi/createPage", {
-              body: JSON.stringify({
+            if (payload.create) {
+              await createPage({
                 ...data,
                 ...templates[type],
-              }),
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }).then(() => {
-              console.log("OK");
-            });
+              });
+            } else if (id) {
+              await updatePage(id, data);
+            }
+
+            handleClose();
           }}
         >
           {payload.create ? "Créer la page" : "Enregister"}
         </button>
       </div>
 
-      {/* <div>
-        <button>
-          <Trash /> Supprimer
-        </button>
-      </div> */}
+      {!payload.create && (
+        <div
+          onClick={() => {
+            const { id } = pageData;
+
+            if (!id) return;
+
+            deletePage(id).then(() => {
+              handleClose();
+            });
+          }}
+        >
+          <button>
+            <Trash /> Supprimer
+          </button>
+        </div>
+      )}
     </div>
   );
 };
@@ -186,7 +207,7 @@ const CheckboxLine: FC<ICheckboxLineProps> = ({ checked, onClick, label }) => (
   </div>
 );
 
-const templates = {
+const templates: Record<string, Partial<TPageData>> = {
   empty: {
     sections: [],
   },

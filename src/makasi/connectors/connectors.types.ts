@@ -1,19 +1,13 @@
-import { TContentNode } from "../Content/Content.types";
-import { TPageData, TPagePath } from "../Page/Page.types";
+import { TPageData } from "../Page/Page.types";
 
-export type TConnector = {
-  getPagePaths: () => Promise<TPagePath[]>;
-  getPage: (path: string) => Promise<TPageData | null>;
-  setPage: (path: string, pageData: TPageData) => Promise<TPageData | null>;
-  getComponent: (id: string) => Promise<TComponentData | null>;
-  createComponent: (componentData: any) => Promise<TComponentData | null>;
-  updateComponent: (
+export interface DataConnector {
+  getPublicPage(slug: string): Promise<TPageData | null>;
+  getPage(id: string): Promise<TPageData | null>;
+  listPages(): Promise<TPageData[]>;
+  createPage(pageData: Partial<TPageData>): Promise<TPageData | null>;
+  updatePage(
     id: string,
-    componentData: TComponentData
-  ) => Promise<TComponentData | null>;
-};
-
-export type TComponentData = {
-  id: string;
-  nodes: TContentNode[];
-};
+    pageData: Partial<TPageData>
+  ): Promise<TPageData | null>;
+  deletePage(id: string): Promise<number>;
+}

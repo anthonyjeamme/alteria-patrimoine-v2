@@ -2,19 +2,24 @@ import { TSectionData } from "../Section/Section.types";
 import { TContentNode } from "../Content/Content.types";
 
 export type TDatabasePageData = {
-  navigationBarId: string | null;
   footerId: string | null;
   sections: TSectionData[];
   metadata: TPageMetadata;
+
+  //
+  navigationBarId: string | null;
 };
 
 export type TPageData = {
   id: string;
-  path: string;
-  navigationBar?: TNavigationbarData;
-  footer?: TFooterData;
+  slug: string;
+  public: boolean;
   sections: TSectionData[];
   metadata: TPageMetadata;
+
+  //
+  navigationBar?: TNavigationbarData;
+  footer?: TFooterData;
 };
 
 export type TNavigationbarData = any;
@@ -30,5 +35,6 @@ export type TPageMetadata = {
 
 export type TPagePath = {
   id: string;
-  path: string;
+  slug: string;
+  metadata: TPageMetadata;
 };

@@ -13,13 +13,19 @@ import {
   PageEditionModalContext,
   usePageEditionModal,
 } from "./PageEditionModal/PageEditionModal";
+import {
+  AdminPagesContext,
+  useAdminPagesContext,
+  withAdminPagesContext,
+} from "./AdminPagesContext/AdminPagesContext";
 const className = classNameModule(styles);
 
 interface IAdminPagesProps {
   pagePaths: TPagePath[];
 }
 
-const AdminPages: FC<IAdminPagesProps> = ({ pagePaths }) => {
+const AdminPages: FC<{}> = ({}) => {
+  const { pages: pagePaths } = useAdminPagesContext();
   const groups = groupPages(pagePaths);
 
   return (
@@ -28,10 +34,10 @@ const AdminPages: FC<IAdminPagesProps> = ({ pagePaths }) => {
         <Header />
         <div {...className("list")}>
           {pagePaths
-            .filter((page) => page.path.split("/").length === 2)
-            .sort((a, b) => a.path.localeCompare(b.path))
+            .filter((page) => page.slug.split("/").length === 2)
+            .sort((a, b) => a.slug.localeCompare(b.slug))
             .map((page) => (
-              <PageItem key={page.id} path={page.path} />
+              <PageItem key={page.id} page={page} />
             ))}
         </div>
 
@@ -43,7 +49,7 @@ const AdminPages: FC<IAdminPagesProps> = ({ pagePaths }) => {
   );
 };
 
-export default AdminPages;
+export default withAdminPagesContext(AdminPages);
 
 const Header = () => {
   const modal = usePageEditionModal();

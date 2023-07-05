@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { createElement } from "react";
 
 export const TextRender = ({ data }) => {

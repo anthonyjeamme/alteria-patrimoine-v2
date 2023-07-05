@@ -36,7 +36,7 @@ export const useIsEdition = () => {
 export const useSectionField = (name: string) => {
   const sectionData = useContext(sectionContext);
 
-  const fieldData = sectionData.fieldsData[name];
+  const fieldData = sectionData.fieldsData?.[name];
 
   return {
     value: fieldData?.value,

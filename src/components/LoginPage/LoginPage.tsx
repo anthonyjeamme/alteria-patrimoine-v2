@@ -10,11 +10,16 @@ import {
   LinkedinLogo,
 } from "@phosphor-icons/react";
 import { useRef } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 const className = classNameModule(styles);
 
 const LoginPage = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+
+  const searchParams = useSearchParams();
+
+  const router = useRouter();
 
   return (
     <div {...className("LoginPage")}>
@@ -33,7 +38,7 @@ const LoginPage = () => {
 
             if (!emailRef.current || !passwordRef.current) return;
 
-            const res = await fetch("/api/makasi/auth", {
+            const res = await fetch("/api/auth/login", {
               body: JSON.stringify({
                 email: emailRef.current.value,
                 password: passwordRef.current.value,
@@ -47,7 +52,9 @@ const LoginPage = () => {
             if (res.error) {
               console.log("ERROR");
             } else {
-              console.log("OK");
+              const redirect = searchParams.get("redirect");
+
+              router.push(redirect ? redirect : "/admin");
             }
           }}
         >

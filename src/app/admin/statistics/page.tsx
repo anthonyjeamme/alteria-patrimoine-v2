@@ -1,8 +1,9 @@
-import { mongodbConnector } from "@/makasi/connectors/mongodbConnector/mongodbConnector";
+import { serverConnector } from "@/connector";
+
 import AdminStatistics from "@/admin/AdminStatistics/AdminStatistics";
 
 const Page = async () => {
-  const pagePaths = await mongodbConnector.getPagePaths();
+  const pagePaths = await serverConnector.listPages();
 
   return <AdminStatistics pagePaths={pagePaths} />;
 };

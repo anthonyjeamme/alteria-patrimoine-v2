@@ -1,8 +1,8 @@
 import AdminPages from "@/admin/AdminPages/AdminPages";
-import { mongodbConnector } from "@/makasi/connectors/mongodbConnector/mongodbConnector";
+import { serverConnector } from "@/connector";
 
 const Page = async () => {
-  const pagePaths = await mongodbConnector.getPagePaths();
+  const pagePaths = await serverConnector.listPages();
 
   return <AdminPages pagePaths={pagePaths} />;
 };

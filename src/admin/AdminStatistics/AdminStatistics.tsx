@@ -26,16 +26,16 @@ const AdminStatistics: FC<IAdminStatisticsProps> = ({ pagePaths }) => {
       <h2>Vues par pages</h2>
       <div {...className("pages")}>
         {pagePaths.map((page) => (
-          <StatisticItem key={page.id} path={page.path} value={10} />
+          <StatisticItem key={page.id} slug={page.slug} value={10} />
         ))}
       </div>
 
       <h2>Acquisition</h2>
       <div {...className("pages")}>
-        <StatisticItem path="Google" value={10} />
-        <StatisticItem path="LinkedIn" value={10} />
-        <StatisticItem path="Facebook" value={10} />
-        <StatisticItem path="Lien Direct" value={10} />
+        <StatisticItem slug="Google" value={10} />
+        <StatisticItem slug="LinkedIn" value={10} />
+        <StatisticItem slug="Facebook" value={10} />
+        <StatisticItem slug="Lien Direct" value={10} />
       </div>
     </div>
   );
@@ -44,15 +44,15 @@ const AdminStatistics: FC<IAdminStatisticsProps> = ({ pagePaths }) => {
 export default AdminStatistics;
 
 interface IStatisticItemProps {
-  path: string;
+  slug: string;
   value: number;
 }
 
-const StatisticItem: FC<IStatisticItemProps> = ({ path, value }) => {
+const StatisticItem: FC<IStatisticItemProps> = ({ slug, value }) => {
   return (
     <div {...className("StatisticItem")}>
       <div {...className("path")}>
-        <span>{path}</span>
+        <span>{slug}</span>
       </div>
 
       <div {...className("value")}>{value} vues</div>
