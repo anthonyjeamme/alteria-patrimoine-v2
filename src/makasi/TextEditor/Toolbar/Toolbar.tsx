@@ -16,10 +16,14 @@ import {
   ListDashes,
   ListNumbers,
   Link,
+  LinkSimple,
+  Minus,
 } from "@phosphor-icons/react";
-import { TOGGLE_LINK_COMMAND } from "@lexical/link";
 import { $wrapNodes } from "@lexical/selection";
 
+import { $isLinkNode, TOGGLE_LINK_COMMAND } from "@lexical/link";
+
+import { INSERT_HORIZONTAL_RULE_COMMAND } from "@lexical/react/LexicalHorizontalRuleNode";
 import {
   $getSelection,
   $isRangeSelection,
@@ -34,6 +38,7 @@ import { TTagName, createNode } from "../TextEditor.utils";
 
 import { classNameModule } from "@/utils/className/className";
 import styles from "./Toolbar.module.scss";
+import LinkModal, { useLinkModal } from "./LinkModal/LinkModal";
 const className = classNameModule(styles);
 
 interface IToolbarProps {
@@ -42,8 +47,10 @@ interface IToolbarProps {
 
 const Toolbar: FC<IToolbarProps> = ({ hasFocus }) => {
   const [editor] = useLexicalComposerContext();
-  const { isBold, isItalic, isUnderlined, align, blockType } =
+  const { isBold, isItalic, isUnderlined, align, blockType, isLink } =
     useToolbarState();
+
+  const linkModal = useLinkModal();
 
   return (
     <div
@@ -52,6 +59,7 @@ const Toolbar: FC<IToolbarProps> = ({ hasFocus }) => {
         e.preventDefault();
       }}
     >
+      <LinkModal {...linkModal} />
       <TopLevelBlockButton
         Icon={Paragraph}
         isActive={blockType === "paragraph"}
@@ -90,8 +98,15 @@ const Toolbar: FC<IToolbarProps> = ({ hasFocus }) => {
         isActive={blockType === "ol"}
         tag="ordered-list"
       />
+      <LinkButton
+        isActive={isLink}
+        handleOpenModal={() => {
+          linkModal.open();
+        }}
+      />
+      {/* <DividerButton /> */}
 
-      <Divider />
+      {/* <Divider /> */}
 
       <FormatTextButton Icon={TextBolder} format="bold" isActive={isBold} />
       <FormatTextButton Icon={TextItalic} format="italic" isActive={isItalic} />
@@ -128,6 +143,42 @@ const Toolbar: FC<IToolbarProps> = ({ hasFocus }) => {
 };
 
 export default Toolbar;
+
+const DividerButton: FC<{}> = () => {
+  const [editor] = useLexicalComposerContext();
+
+  return (
+    <button
+      onClick={() => {
+        //
+        editor.dispatchCommand(INSERT_HORIZONTAL_RULE_COMMAND, undefined);
+        console.log("INSERT DIVIDER !", INSERT_HORIZONTAL_RULE_COMMAND);
+      }}
+    >
+      <Minus />
+    </button>
+  );
+};
+
+const LinkButton: FC<{ handleOpenModal: () => void; isActive: boolean }> = ({
+  handleOpenModal,
+  isActive,
+}) => {
+  const [editor] = useLexicalComposerContext();
+
+  return (
+    <button
+      {...className({ isActive })}
+      onClick={() => {
+        editor.dispatchCommand(TOGGLE_LINK_COMMAND, {
+          url: "https://www.google.com",
+        });
+      }}
+    >
+      <LinkSimple />
+    </button>
+  );
+};
 
 const TopLevelBlockButton: FC<{
   isActive: boolean;

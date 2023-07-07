@@ -1,0 +1,19 @@
+.AddSection {
+  //
+  display: flex;
+  justify-content: center;
+
+  & > button {
+    height: 36px;
+    width: 36px;
+    border-radius: 36px;
+    background-color: var(--light);
+    display: flex;
+    border: 1px solid rgba(var(--dark-dec), 0.1);
+    font-size: 18px;
+
+    & > svg {
+      margin: auto;
+    }
+  }
+}

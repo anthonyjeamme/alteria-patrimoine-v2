@@ -8,10 +8,10 @@ import { sections } from "@/project/sections/sections";
 import { classNameModule } from "@/utils/className/className";
 import styles from "./page.module.scss";
 import { useEffect, useState } from "react";
-import { TPageData } from "@/makasi/Page/Page.types";
+import { TPageData } from "@/makasi/core/Page/Page.types";
 import { clientConnector } from "@/makasi/client";
 
-const PageEdition = dynamic(() => import("@/makasi/Page/Page.edition"), {
+const PageEdition = dynamic(() => import("@/makasi/core/Page/Page.edition"), {
   ssr: false,
 });
 
@@ -22,6 +22,8 @@ const CustomRootPage = ({ params }: { params: { slug: string[] } }) => {
   const [pageData, setPageData] = useState<TPageData | null>(null);
 
   const slugString = params.slug ? `/${params.slug.join("/")}` : "/";
+
+  console.log(pageData);
 
   useEffect(() => {
     clientConnector
@@ -42,8 +44,13 @@ const CustomRootPage = ({ params }: { params: { slug: string[] } }) => {
       <PageEdition
         sectionDefinitions={sections}
         pageData={pageData}
-        onChange={({ id, ...data }) => {
-          clientConnector.updatePage(id, data);
+        onChange={async ({ id, ...data }) => {
+          setPageData({
+            id,
+            ...data,
+          });
+          await clientConnector.updatePage(id, data);
+          console.log("SAVED");
         }}
       />
     </main>

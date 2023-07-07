@@ -1,12 +1,20 @@
-// @ts-nocheck
+import { FC, createElement } from "react";
 
-import { createElement } from "react";
+import {
+  TLexicalDocument,
+  TLexicalNode,
+  TLexicalTopLevelNode,
+} from "./TextRender.types";
+import formatStyle from "../TextFormat.module.scss";
+import { getBlockFormatStyle, getFormattingStyle } from "./TextRender.utils";
 
-export const TextRender = ({ data }) => {
+export const TextRender: FC<{
+  data: TLexicalDocument;
+}> = ({ data }) => {
   if (!data?.root?.children) return null;
 
   return (
-    <div>
+    <div className={formatStyle["root"]}>
       {data.root.children.map((block, index) => (
         <Block block={block} key={index} />
       ))}
@@ -14,11 +22,13 @@ export const TextRender = ({ data }) => {
   );
 };
 
-const Block = ({ block }) => {
+const Block: FC<{
+  block: TLexicalTopLevelNode;
+}> = ({ block }) => {
   switch (block.type) {
     case "paragraph":
       return (
-        <p>
+        <p style={getBlockFormatStyle(block)}>
           {block.children.map((child, index) => (
             <Node node={child} key={index} />
           ))}
@@ -28,13 +38,15 @@ const Block = ({ block }) => {
     case "heading":
       return createElement(
         block.tag,
-        {},
+        {
+          style: getBlockFormatStyle(block),
+        },
         block.children.map((child, index) => <Node node={child} key={index} />)
       );
 
     case "quote":
       return (
-        <blockquote>
+        <blockquote style={getBlockFormatStyle(block)}>
           {block.children.map((child, index) => (
             <Node node={child} key={index} />
           ))}
@@ -43,7 +55,7 @@ const Block = ({ block }) => {
 
     case "list":
       return (
-        <ul>
+        <ul style={getBlockFormatStyle(block)}>
           {block.children.map((child, index) => (
             <Node node={child} key={index} />
           ))}
@@ -51,26 +63,41 @@ const Block = ({ block }) => {
       );
   }
 
-  return <div>??? {block.type}</div>;
+  console.log(block);
+  return <div>UNHANDLED TOPLEVEL BLOCK</div>;
 };
 
-const Node = ({ node }) => {
+const Node: FC<{ node: TLexicalNode }> = ({ node }) => {
   switch (node.type) {
     case "text":
-      if (node.format === 1)
-        return <span style={{ fontWeight: 700 }}>{node.text}</span>;
+      if (node.format === 0) return node.text;
 
-      return node.text;
+      const style = getFormattingStyle(node.format);
+
+      return <span style={style}>{node.text}</span>;
 
     case "listitem":
       return (
-        <li>
+        <li style={getBlockFormatStyle(node)}>
           {node.children.map((child, index) => (
             <Node node={child} key={index} />
           ))}
         </li>
       );
+
+    case "linebreak":
+      return <br />;
+
+    case "link":
+      return (
+        <a href={node.url}>
+          {node.children.map((child, index) => (
+            <Node node={child} key={index} />
+          ))}
+        </a>
+      );
   }
 
-  return <div>???</div>;
+  console.log(node);
+  return <div>UNHANDLED NODE</div>;
 };

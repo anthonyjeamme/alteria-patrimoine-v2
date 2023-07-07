@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { TComponentProps } from "@/makasi/Component/Component.types";
+import { TComponentProps } from "@/makasi/core/Component/Component.types";
 
 import { classNameModule } from "@/utils/className/className";
 import styles from "./TestComponent.module.scss";

@@ -1,4 +1,4 @@
-import { TPageData } from "../Page/Page.types";
+import { TPageData } from "../core/Page/Page.types";
 
 const API_PATH = `/api/data`;
 

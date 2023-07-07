@@ -9,6 +9,10 @@ const pageSchema = new Schema(
       description: { type: String, default: "" },
     },
     sections: [{ type: Schema.Types.Mixed }],
+    config: {
+      lockSections: { type: Boolean },
+      allowedSections: [{ type: String }],
+    },
   },
   {
     timestamps: true,

@@ -66,6 +66,8 @@
       flex: 1;
       overflow-y: scroll;
       margin-right: 5px;
+      display: flex;
+      flex-direction: column;
 
       &::-webkit-scrollbar {
         width: 10px;

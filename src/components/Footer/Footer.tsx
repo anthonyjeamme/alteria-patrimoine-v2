@@ -1,8 +1,8 @@
 import { classNameModule } from "@/utils/className/className";
 import styles from "./Footer.module.scss";
-import Content from "@/makasi/Content/Content";
+import Content from "@/makasi/core/Content/Content";
 import { FC } from "react";
-import { TFooterData } from "@/makasi/Page/Page.types";
+import { TFooterData } from "@/makasi/core/Page/Page.types";
 const className = classNameModule(styles);
 
 interface IFooterProps {

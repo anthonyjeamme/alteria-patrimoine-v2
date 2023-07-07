@@ -1,10 +1,10 @@
 import { classNameModule } from "@/utils/className/className";
 import styles from "./HomeSection.module.scss";
 import { CSSProperties, FC } from "react";
-import { TSectionProps } from "@/makasi/Section/Section.types";
+import { TSectionProps } from "@/makasi/core/Section/Section.types";
 import { Heading } from "@/makasi";
 import Container from "@/components/common/Container/Container";
-import { Content } from "@/makasi/Field/ContentField/ContentField";
+import { Content } from "@/makasi/core/Field/ContentField/ContentField";
 const className = classNameModule(styles);
 
 const HomeSection: FC<
@@ -35,10 +35,10 @@ const HomeSection: FC<
       )}
 
       <Container>
-        <Heading field="title" heading={2} />
+        <Heading name="title" heading={2} />
       </Container>
 
-      <Content field="content" />
+      <Content name="content" />
     </div>
   );
 };

@@ -20,6 +20,7 @@ export type TPageData = {
   //
   navigationBar?: TNavigationbarData;
   footer?: TFooterData;
+  config: TPageConfig;
 };
 
 export type TNavigationbarData = any;
@@ -36,5 +37,11 @@ export type TPageMetadata = {
 export type TPagePath = {
   id: string;
   slug: string;
+  public: boolean;
   metadata: TPageMetadata;
+};
+
+export type TPageConfig = {
+  lockSections: boolean;
+  allowedSections?: string[];
 };

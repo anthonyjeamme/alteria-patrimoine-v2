@@ -1,4 +1,4 @@
-import { TPageData } from "../Page/Page.types";
+import { TPageData } from "../core/Page/Page.types";
 
 export interface DataConnector {
   getPublicPage(slug: string): Promise<TPageData | null>;

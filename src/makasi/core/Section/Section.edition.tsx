@@ -12,16 +12,14 @@ export const SectionEdition: FC<ISectionProps> = ({
   sectionData,
   children,
   handleUpdate,
-}) => {
-  return (
-    <SectionContext
-      edition={true}
-      sectionData={sectionData}
-      handleUpdate={(data) => {
-        handleUpdate(data);
-      }}
-    >
-      {children}
-    </SectionContext>
-  );
-};
+}) => (
+  <SectionContext
+    edition={true}
+    sectionData={sectionData}
+    handleUpdate={(data) => {
+      handleUpdate(data);
+    }}
+  >
+    {children}
+  </SectionContext>
+);

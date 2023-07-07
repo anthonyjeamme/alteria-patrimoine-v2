@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 
-import { TComponentDefinition } from "@/makasi/Component/Component.types";
+import { TComponentDefinition } from "@/makasi/core/Component/Component.types";
 
 const Component = dynamic(() => import("./TestComponent"));
 

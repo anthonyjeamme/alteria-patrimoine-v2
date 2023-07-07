@@ -1,5 +1,32 @@
 .EditPage {
-  padding: 20px 30px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  & > .content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 30px;
+  }
+
+  & > footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-top: 1px solid rgba(var(--dark-dec), 0.1);
+
+    .delete {
+      background-color: var(--danger);
+      color: white;
+      font-weight: 500;
+    }
+
+    .save {
+      background-color: var(--success);
+      color: white;
+      font-weight: 500;
+    }
+  }
 
   input[type="text"] {
     height: 40px;

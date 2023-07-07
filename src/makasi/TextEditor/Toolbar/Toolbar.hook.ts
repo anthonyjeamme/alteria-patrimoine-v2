@@ -17,6 +17,7 @@ export const useToolbarState = () => {
   const [isUnderlined, setIsUnderlined] = useState(false);
   const [isBulletList, setIsBulletList] = useState(false);
   const [isOrderedList, setIsOrderedList] = useState(false);
+  const [isLink, setIsLink] = useState(false);
   const [align, setAlign] = useState<"left" | "center" | "right" | "justify">(
     "left"
   );
@@ -35,6 +36,8 @@ export const useToolbarState = () => {
 
           const anchorNode = selection.anchor.getNode();
           const topLevelElement = anchorNode.getTopLevelElement();
+
+          setIsLink(anchorNode.getParent()?.getType() === "link");
 
           if (topLevelElement && $isElementNode(topLevelElement)) {
             setAlign(getNodeTextAlign(topLevelElement));
@@ -62,6 +65,7 @@ export const useToolbarState = () => {
     blockType,
     isBulletList,
     isOrderedList,
+    isLink,
   };
 };
 

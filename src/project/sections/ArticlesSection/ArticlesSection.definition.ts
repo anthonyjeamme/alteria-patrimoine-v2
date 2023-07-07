@@ -1,4 +1,4 @@
-import { TSectionDefinition } from "@/makasi/Section/Section.types";
+import { TSectionDefinition } from "@/makasi/core/Section/Section.types";
 import dynamic from "next/dynamic";
 import { TArticleItem } from "./ArticlesSection";
 
@@ -6,6 +6,9 @@ const Component = dynamic(() => import("./ArticlesSection"));
 
 export const ArticlesSectionDefinition: TSectionDefinition = {
   name: "articles",
+  label: "Liste des articles",
+  imagePreview:
+    "https://res.cloudinary.com/anthony-jeamme-stuff/image/upload/v1688668287/alteria/articles.svg",
   Component,
   getData: async (): Promise<TArticleItem[]> => {
     return [

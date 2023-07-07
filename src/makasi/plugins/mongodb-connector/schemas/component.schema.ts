@@ -1,4 +1,4 @@
-import { TContentNode } from "@/makasi/Content/Content.types";
+import { TContentNode } from "@/makasi/core/Content/Content.types";
 import { Schema, Model, model, models } from "mongoose";
 
 const componentSchema = new Schema(

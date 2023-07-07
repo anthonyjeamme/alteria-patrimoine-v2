@@ -12,6 +12,8 @@ import { TableCellNode, TableNode, TableRowNode } from "@lexical/table";
 import { ListItemNode, ListNode } from "@lexical/list";
 import { AutoLinkNode, LinkNode } from "@lexical/link";
 
+import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
+
 import { classNameModule } from "@/utils/className/className";
 import styles from "./TextEditor.module.scss";
 import Toolbar from "./Toolbar/Toolbar";
@@ -21,6 +23,8 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { SerializedEditorState, SerializedLexicalNode } from "lexical";
 import { cleanData } from "./TextEditor.utils";
 const className = classNameModule(styles);
+
+import formatStyle from "./TextFormat.module.scss";
 
 function onError(error: any) {
   console.error(error);
@@ -38,7 +42,11 @@ export function TextEditor({ value, onChange }: ITextEditorProps) {
 
   return (
     <div
-      {...className("TextEditor")}
+      className={
+        className("TextEditor", { hasFocus }).className +
+        " " +
+        formatStyle["root"]
+      }
       onFocus={() => {
         setHasFocus(true);
       }}
@@ -52,7 +60,7 @@ export function TextEditor({ value, onChange }: ITextEditorProps) {
         initialConfig={{
           namespace: "editor",
           onError,
-          editorState: JSON.stringify(value),
+          editorState: formatInitValue(value),
           nodes: [
             HeadingNode,
             ListNode,
@@ -78,11 +86,37 @@ export function TextEditor({ value, onChange }: ITextEditorProps) {
           ErrorBoundary={LexicalErrorBoundary}
         />
         <Slash />
+        <LinkPlugin />
         <HistoryPlugin />
       </LexicalComposer>
     </div>
   );
 }
+
+const formatInitValue = (value: any) => {
+  const empty = {
+    root: {
+      type: "root",
+      children: [
+        {
+          type: "paragraph",
+          children: [
+            {
+              type: "text",
+              text: "EMPTY",
+            },
+          ],
+        },
+      ],
+    },
+  };
+
+  if (typeof value !== "object") return JSON.stringify(empty);
+
+  if (!value?.root?.children?.length) return JSON.stringify(empty);
+
+  return JSON.stringify(value);
+};
 
 const Export = () => {
   const [editor] = useLexicalComposerContext();

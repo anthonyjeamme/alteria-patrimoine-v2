@@ -9,15 +9,19 @@ import styles from "./PageEditionModal.module.scss";
 import Input from "@/admin/common/Input/Input";
 import Select from "@/admin/common/Select/Select";
 import Textarea from "@/admin/common/Textarea/Textarea";
-import { Trash } from "@phosphor-icons/react";
+import { FloppyDisk, Trash } from "@phosphor-icons/react";
 import Checkbox from "@/admin/common/Checkbox/Checkbox";
-import { TPageData } from "@/makasi/Page/Page.types";
+import { TPageData, TPagePath } from "@/makasi/core/Page/Page.types";
 import { useAdminPagesContext } from "../AdminPagesContext/AdminPagesContext";
+import { TPagePreset } from "../AdminPages";
+
 const className = classNameModule(styles);
 
 export type TPageEditionPayload =
   | {
       create: true;
+      pageData?: Partial<TPageData>;
+      presetName?: string;
     }
   | {
       create: false;
@@ -30,9 +34,11 @@ const pageEditionModalContext =
 
 export const usePageEditionModal = () => useContext(pageEditionModalContext);
 
-export const PageEditionModalContext: FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const PageEditionModalContext: FC<{
+  children: ReactNode;
+  pagePresets: TPagePreset[];
+  pagePaths: TPagePath[];
+}> = ({ children, pagePresets, pagePaths }) => {
   const sideModal = useSideModal<TPageEditionPayload>();
 
   return (
@@ -40,10 +46,12 @@ export const PageEditionModalContext: FC<{ children: ReactNode }> = ({
       <SideModal {...sideModal}>
         {sideModal.payload && (
           <EditPage
+            pagePresets={pagePresets}
             payload={sideModal.payload}
             handleClose={() => {
               sideModal.close();
             }}
+            pagePaths={pagePaths}
           />
         )}
       </SideModal>
@@ -56,140 +64,156 @@ export const PageEditionModalContext: FC<{ children: ReactNode }> = ({
 const EditPage: FC<{
   payload: TPageEditionPayload;
   handleClose: () => void;
-}> = ({ payload, handleClose }) => {
+  pagePresets: TPagePreset[];
+  pagePaths: TPagePath[];
+}> = ({ payload, handleClose, pagePresets, pagePaths }) => {
   const [pageData, setPageData] = useState<Partial<TPageData>>(
     payload.create
       ? {
-          id: "",
-          slug: "",
+          slug: "/",
           metadata: { title: "", description: "" },
           sections: [],
           public: false,
+          ...payload.pageData,
         }
       : payload.pageData
   );
-  const [type, setType] = useState<string>("empty");
+  const [type, setType] = useState<string | null>(
+    payload.create ? payload.presetName || pagePresets[0].name : null
+  );
   const { deletePage, createPage, updatePage } = useAdminPagesContext();
 
   return (
     <div {...className("EditPage")}>
-      {/* <CheckboxLine
-        checked={sitemap}
-        label="Ajouter au sitemap"
-        onClick={() => {
-          setSitemap(!sitemap);
-        }}
-      />
+      <div {...className("content")}>
+        {!payload.create && (
+          <CheckboxLine
+            checked={pageData.public || false}
+            label="Visible"
+            onClick={() => {
+              setPageData({ ...pageData, public: !pageData.public });
+            }}
+          />
+        )}
 
-      <CheckboxLine
-        checked={visible}
-        label="Visible"
-        onClick={() => {
-          setVisible(!visible);
-        }}
-      /> */}
+        {payload.create && !payload.presetName && (
+          <div {...className("Field")}>
+            <div {...className("label")}>Type de page</div>
+            <Select
+              value={type || ""}
+              onChange={(type) => {
+                const findPreset = pagePresets.find(
+                  (preset) => preset.name === type
+                );
 
-      <div {...className("Field")}>
-        <div {...className("label")}>Chemin</div>
-        <Input
-          value={pageData.slug || ""}
-          onChange={(slug) => {
-            setPageData({ ...pageData, slug });
-          }}
-        />
-      </div>
+                setPageData({
+                  ...pageData,
+                  slug: findPreset?.slugPrefix || "/",
+                });
 
-      <div {...className("Field")}>
-        <div {...className("label")}>Type de page</div>
-        <Select
-          value={type}
-          onChange={setType}
-          options={[
-            {
-              value: "empty",
-              label: "Vide",
-            },
-            {
-              value: "legal",
-              label: "Page légale",
-            },
-          ]}
-        />
-      </div>
+                setType(type);
+              }}
+              options={pagePresets.map((pagePreset) => ({
+                value: pagePreset.name,
+                label: pagePreset.label,
+              }))}
+            />
+          </div>
+        )}
 
-      <div {...className("Box")}>
         <div {...className("Field")}>
-          <div {...className("label")}>Titre</div>
+          <div {...className("label")}>Chemin</div>
           <Input
-            value={pageData.metadata?.title || ""}
-            onChange={(title) => {
-              setPageData({
-                ...pageData,
-                metadata: {
-                  description: "",
-                  ...pageData.metadata,
-                  title,
-                },
-              });
+            value={pageData.slug || ""}
+            onChange={(slug) => {
+              setPageData({ ...pageData, slug });
             }}
           />
         </div>
-        <div {...className("Field")}>
-          <div {...className("label")}>Description</div>
-          <Textarea
-            value={pageData.metadata?.description || ""}
-            onChange={(description) => {
-              setPageData({
-                ...pageData,
-                metadata: {
-                  title: "",
-                  ...pageData.metadata,
-                  description,
-                },
-              });
-            }}
-          />
+
+        <div {...className("Box")}>
+          <div {...className("Field")}>
+            <div {...className("label")}>Titre</div>
+            <Input
+              value={pageData.metadata?.title || ""}
+              onChange={(title) => {
+                setPageData({
+                  ...pageData,
+                  metadata: {
+                    description: "",
+                    ...pageData.metadata,
+                    title,
+                  },
+                });
+              }}
+            />
+          </div>
+          <div {...className("Field")}>
+            <div {...className("label")}>Description</div>
+            <Textarea
+              value={pageData.metadata?.description || ""}
+              onChange={(description) => {
+                setPageData({
+                  ...pageData,
+                  metadata: {
+                    title: "",
+                    ...pageData.metadata,
+                    description,
+                  },
+                });
+              }}
+            />
+          </div>
         </div>
       </div>
 
-      <div>
-        <button
-          onClick={async () => {
-            const { id, ...data } = pageData;
+      <footer>
+        <div>
+          {!payload.create && (
+            <div>
+              <button
+                {...className("delete")}
+                onClick={() => {
+                  const { id } = pageData;
 
-            if (payload.create) {
-              await createPage({
-                ...data,
-                ...templates[type],
-              });
-            } else if (id) {
-              await updatePage(id, data);
-            }
+                  if (!id) return;
 
-            handleClose();
-          }}
-        >
-          {payload.create ? "Créer la page" : "Enregister"}
-        </button>
-      </div>
+                  deletePage(id).then(() => {
+                    handleClose();
+                  });
+                }}
+              >
+                <Trash /> Supprimer
+              </button>
+            </div>
+          )}
+        </div>
 
-      {!payload.create && (
-        <div
-          onClick={() => {
-            const { id } = pageData;
+        <div>
+          <button
+            {...className("save")}
+            onClick={async () => {
+              const { id, ...data } = pageData;
 
-            if (!id) return;
+              const preset = pagePresets.find((preset) => preset.name === type);
 
-            deletePage(id).then(() => {
+              if (payload.create) {
+                await createPage({
+                  ...data,
+                  ...preset?.defaultPageData,
+                });
+              } else if (id) {
+                await updatePage(id, data);
+              }
+
               handleClose();
-            });
-          }}
-        >
-          <button>
-            <Trash /> Supprimer
+            }}
+          >
+            <FloppyDisk />
+            {payload.create ? "Créer la page" : "Enregister"}
           </button>
         </div>
-      )}
+      </footer>
     </div>
   );
 };
@@ -206,55 +230,3 @@ const CheckboxLine: FC<ICheckboxLineProps> = ({ checked, onClick, label }) => (
     <span>{label}</span>
   </div>
 );
-
-const templates: Record<string, Partial<TPageData>> = {
-  empty: {
-    sections: [],
-  },
-  legal: {
-    sections: [
-      {
-        id: "a",
-        type: "legal-header",
-        fieldsData: {
-          title: {
-            value: "Titre",
-            params: {},
-          },
-        },
-        params: {},
-      },
-
-      {
-        type: "text-section",
-        id: "x",
-        params: {},
-        fieldsData: {
-          text: {
-            value: {
-              root: {
-                type: "root",
-                children: [
-                  {
-                    type: "paragraph",
-                    children: [
-                      {
-                        type: "text",
-                        text: "Contenu",
-                        style: "",
-                        mode: "normal",
-                        format: 0,
-                        detail: 0,
-                      },
-                    ],
-                  },
-                ],
-              },
-            },
-            params: {},
-          },
-        },
-      },
-    ],
-  },
-};

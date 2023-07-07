@@ -5,10 +5,10 @@ import Link from "next/link";
 import { classNameModule } from "@/utils/className/className";
 import styles from "./PageItem.module.scss";
 import { FC } from "react";
-import { Gear, Pencil } from "@phosphor-icons/react";
+import { EyeSlash, Gear, Pencil } from "@phosphor-icons/react";
 
 import { usePageEditionModal } from "../PageEditionModal/PageEditionModal";
-import { TPagePath } from "@/makasi/Page/Page.types";
+import { TPagePath } from "@/makasi/core/Page/Page.types";
 const className = classNameModule(styles);
 
 interface IPageItemProps {
@@ -17,9 +17,14 @@ interface IPageItemProps {
 
 const PageItem: FC<IPageItemProps> = ({ page }) => {
   const pageEditionModal = usePageEditionModal();
-
   return (
-    <div {...className("PageItem")}>
+    <div {...className("PageItem", { hidden: !page.public })}>
+      {!page.public && (
+        <span {...className("hidden")}>
+          <EyeSlash />
+        </span>
+      )}
+
       <div {...className("path")}>
         <span>{page.slug}</span>
       </div>

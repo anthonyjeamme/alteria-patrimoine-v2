@@ -2,7 +2,7 @@ import mongoose, { Types } from "mongoose";
 
 import { connect, cleanPagedata } from "./utils";
 import { PageModel } from "./schemas/page.schema";
-import { TPageData } from "@/makasi/Page/Page.types";
+import { TPageData } from "@/makasi/core/Page/Page.types";
 import { DataConnector } from "@/makasi/connectors/connectors.types";
 
 class MongodbConnector implements DataConnector {

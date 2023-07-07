@@ -1,4 +1,4 @@
-import { TPageData } from "@/makasi/Page/Page.types";
+import { TPageData } from "@/makasi/core/Page/Page.types";
 import {
   FC,
   Dispatch,

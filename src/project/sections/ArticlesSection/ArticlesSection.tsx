@@ -1,7 +1,7 @@
 import { classNameModule } from "@/utils/className/className";
 import styles from "./ArticlesSection.module.scss";
 import { CSSProperties, FC } from "react";
-import { TSectionProps } from "@/makasi/Section/Section.types";
+import { TSectionProps } from "@/makasi/core/Section/Section.types";
 import { Heading } from "@/makasi";
 import Container from "@/components/common/Container/Container";
 import { Icon } from "@/utils/Icon/Icon";
@@ -24,11 +24,11 @@ const ArticlesSection: FC<
     <div
       {...className("ArticlesSection")}
       style={{
-        backgroundColor: params.style.backgroundColor,
+        backgroundColor: params?.style?.backgroundColor,
       }}
     >
       <Container>
-        <Heading field="title" heading={2} />
+        <Heading name="title" heading={2} />
 
         <div {...className("list")}>
           {data?.map((item) => (

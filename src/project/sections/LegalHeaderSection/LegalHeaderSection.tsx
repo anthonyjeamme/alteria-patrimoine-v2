@@ -1,7 +1,7 @@
 import { classNameModule } from "@/utils/className/className";
 import styles from "./LegalHeaderSection.module.scss";
 import { FC } from "react";
-import { TSectionProps } from "@/makasi/Section/Section.types";
+import { TSectionProps } from "@/makasi/core/Section/Section.types";
 import { Heading } from "@/makasi";
 import Container from "@/components/common/Container/Container";
 const className = classNameModule(styles);
@@ -10,7 +10,7 @@ const LegalHeaderSection: FC<TSectionProps<{}>> = () => {
   return (
     <div {...className("LegalHeaderSection")}>
       <Container>
-        <Heading field="title" heading={1} />
+        <Heading name="title" heading={1} />
       </Container>
 
       <Curve color="var(--dark)" />

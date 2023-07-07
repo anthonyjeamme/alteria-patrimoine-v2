@@ -2,7 +2,7 @@
 
 import { classNameModule } from "@/utils/className/className";
 import styles from "./AdminStatistics.module.scss";
-import { TPagePath } from "@/makasi/Page/Page.types";
+import { TPagePath } from "@/makasi/core/Page/Page.types";
 import { FC } from "react";
 const className = classNameModule(styles);
 
@@ -26,16 +26,21 @@ const AdminStatistics: FC<IAdminStatisticsProps> = ({ pagePaths }) => {
       <h2>Vues par pages</h2>
       <div {...className("pages")}>
         {pagePaths.map((page) => (
-          <StatisticItem key={page.id} slug={page.slug} value={10} />
+          <StatisticItem
+            key={page.id}
+            name={page.slug}
+            value={10}
+            keyType="slug"
+          />
         ))}
       </div>
 
       <h2>Acquisition</h2>
       <div {...className("pages")}>
-        <StatisticItem slug="Google" value={10} />
-        <StatisticItem slug="LinkedIn" value={10} />
-        <StatisticItem slug="Facebook" value={10} />
-        <StatisticItem slug="Lien Direct" value={10} />
+        <StatisticItem name="Google" value={10} />
+        <StatisticItem name="LinkedIn" value={10} />
+        <StatisticItem name="Facebook" value={10} />
+        <StatisticItem name="Lien Direct" value={10} />
       </div>
     </div>
   );
@@ -44,15 +49,20 @@ const AdminStatistics: FC<IAdminStatisticsProps> = ({ pagePaths }) => {
 export default AdminStatistics;
 
 interface IStatisticItemProps {
-  slug: string;
+  name: string;
   value: number;
+  keyType?: "slug" | "other";
 }
 
-const StatisticItem: FC<IStatisticItemProps> = ({ slug, value }) => {
+const StatisticItem: FC<IStatisticItemProps> = ({
+  name,
+  value,
+  keyType = "other",
+}) => {
   return (
-    <div {...className("StatisticItem")}>
+    <div {...className("StatisticItem", { keyType })}>
       <div {...className("path")}>
-        <span>{slug}</span>
+        <span>{name}</span>
       </div>
 
       <div {...className("value")}>{value} vues</div>

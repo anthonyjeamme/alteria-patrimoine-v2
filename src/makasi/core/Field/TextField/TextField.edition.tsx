@@ -2,11 +2,12 @@
 
 import { DetailedHTMLProps, FC, HTMLAttributes } from "react";
 import { TFieldProps } from "../Field.types";
-import {
-  useSectionEdition,
-  useSectionField,
-} from "@/makasi/Section/Section.context";
+
 import dynamic from "next/dynamic";
+import {
+  useFieldContext,
+  useFieldEdition,
+} from "../../fieldsContext/fieldsContext";
 
 const TextEditor = dynamic(() => import("@/makasi/TextEditor/TextEditor"), {
   ssr: false,
@@ -15,15 +16,15 @@ const TextEditor = dynamic(() => import("@/makasi/TextEditor/TextEditor"), {
 export const TextEdition: FC<
   TFieldProps &
     DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
-> = ({ field, ...props }) => {
-  const fieldData = useSectionField(field);
-  const { update } = useSectionEdition(field);
+> = ({ name, ...props }) => {
+  const { value } = useFieldContext<string>(name);
+  const { setValue } = useFieldEdition<string>(name);
 
   return (
     <TextEditor
-      value={fieldData.value}
+      value={value}
       onChange={(data) => {
-        update(data);
+        setValue(data);
       }}
     />
   );

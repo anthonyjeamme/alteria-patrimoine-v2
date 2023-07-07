@@ -1,4 +1,4 @@
-import { TPageData } from "@/makasi/Page/Page.types";
+import { TPageData } from "@/makasi/core/Page/Page.types";
 import mongoose from "mongoose";
 
 /**
@@ -19,5 +19,6 @@ export const cleanPagedata = (document: any): TPageData => {
     slug: document.slug,
     metadata: document.metadata,
     sections: document.sections,
+    config: document.config,
   };
 };

@@ -1,54 +1,30 @@
 .TextEditor {
-  // position: relative;
+  position: relative;
+
+  &::after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    border: 2px dashed rgba(white, 0.1);
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 250ms;
+  }
+
+  &:hover,
+  &.hasFocus {
+    &::after {
+      opacity: 1;
+    }
+  }
+
   & > [data-lexical-editor="true"] {
     border-radius: 5px;
     outline: none;
-
-    p {
-      margin: 10px 0;
-      &:first-child {
-        margin-top: 0;
-      }
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-
-    ul,
-    ol {
-      margin: 10px 30px;
-
-      & > li {
-        margin: 5px 0;
-
-        &:first-child {
-          margin-top: 0;
-        }
-
-        &:last-child {
-          margin-bottom: 0;
-        }
-      }
-    }
-
-    blockquote {
-      padding: 10px 20px;
-      position: relative;
-      margin: 10px 0;
-      line-height: 1.3;
-
-      &::before {
-        content: "";
-        display: block;
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 5px;
-        border-radius: 5px;
-        background-color: var(--primary);
-      }
-    }
   }
 
   .PlaceHolder {

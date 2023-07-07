@@ -1,29 +1,25 @@
 "use client";
 
-import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
-
 import dynamic from "next/dynamic";
 import { DetailedHTMLProps, FC, HTMLAttributes } from "react";
 import { TFieldProps } from "../Field.types";
-import {
-  useIsEdition,
-  useSectionField,
-} from "@/makasi/Section/Section.context";
-import { LexicalComposer } from "@lexical/react/LexicalComposer";
+import { useIsEdition } from "@/makasi/core/Section/Section.context";
 import { TextRender } from "@/makasi/TextEditor/TextRender/TextRender";
+import { useFieldContext } from "../../fieldsContext/fieldsContext";
 
 const TextEdition = dynamic(() => import("./TextField.edition"));
 
 export const Text: FC<
   TFieldProps &
     DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
-> = ({ field, ...props }) => {
+> = ({ name, ...props }) => {
+  const { value } = useFieldContext<any>(name);
+
   const isEdition = useIsEdition();
-  const fieldData = useSectionField(field);
 
   if (isEdition) {
-    return <TextEdition field={field} />;
+    return <TextEdition name={name} />;
   }
 
-  return <TextRender data={fieldData.value} />;
+  return <TextRender data={value} />;
 };
