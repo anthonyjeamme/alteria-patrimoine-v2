@@ -1,0 +1,85 @@
+.SectionEditionWrapper {
+  position: relative;
+
+  &:hover {
+    .Actions {
+      opacity: 1;
+
+      & > div {
+        pointer-events: all;
+        transform: none;
+      }
+    }
+
+    .BottomActions > div {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+.Actions {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  transition: opacity 250ms;
+  z-index: 10;
+  overflow: hidden;
+
+  & > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 250ms;
+    padding: 20px;
+
+    &:first-child {
+      transform: translateX(-100%);
+    }
+
+    &:nth-child(2) {
+      transform: translateY(-100%);
+    }
+
+    &:last-child {
+      transform: translateX(100%);
+    }
+  }
+}
+
+.BottomActions {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+
+  & > div {
+    transform: translateY(100%);
+    padding: 20px;
+    transition: opacity 250ms, transform 250ms;
+  }
+}
+
+.ActionButton {
+  background-color: white;
+  display: flex;
+  height: 40px;
+  width: 40px;
+  border-radius: 40px;
+  font-weight: 500;
+  font-size: 14px;
+  border: 1px solid rgba(var(--dark-dec), 0.1);
+  cursor: pointer;
+
+  & > svg {
+    margin: auto;
+  }
+}

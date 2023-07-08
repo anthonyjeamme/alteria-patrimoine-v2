@@ -1,7 +1,8 @@
 .ToolbarPlugin {
-  position: absolute;
+  position: fixed;
   left: 0;
-  bottom: calc(100% + 5px);
+  bottom: 0;
+  right: 0;
   display: flex;
   gap: 5px;
 

@@ -1,29 +1,33 @@
 .Toolbar {
-  position: absolute;
-  // left: 0;
-  // top: 5px;
+  position: fixed;
   left: 0;
+  top: 0;
+  right: 0;
   color: var(--dark);
-  bottom: calc(100% + 5px);
   display: flex;
+  justify-content: center;
   gap: 5px;
-  z-index: 10;
+  z-index: 100;
 
-  background-color: var(--light);
+  background-color: white;
   border: 1px solid rgba(var(--dark-dec), 0.1);
-  border-radius: 8px;
-  padding: 3px;
+  padding: 10px;
 
   transition: translate 250ms, opacity 250ms;
 
+  translate: 0 -100%;
   pointer-events: none;
-  opacity: 0;
-  // translate: 0 8px;
+  overflow-x: auto;
+
+  & > div {
+    display: flex;
+    justify-content: center;
+  }
 
   &.hasFocus {
     opacity: 1;
     pointer-events: all;
-    // translate: none;
+    translate: none;
   }
 
   button {

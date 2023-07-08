@@ -1,16 +1,20 @@
 "use client";
 
-import uniqid from "uniqid";
-import { FC, Fragment } from "react";
+import { FC, useEffect, useState } from "react";
 import { TPageData } from "../Page.types";
 import { SectionEdition } from "../../Section/Section.edition";
-import { TSectionDefinition } from "../../Section/Section.types";
-import { Plus, Trash } from "@phosphor-icons/react";
+import { TSectionData, TSectionDefinition } from "../../Section/Section.types";
 
-import { classNameModule } from "@/utils/className/className";
-import styles from "./PageEdition.module.scss";
-import SectionPicker, { useSectionPicker } from "./SectionPicker/SectionPicker";
-const className = classNameModule(styles);
+import SectionPicker, {
+  TUseSectionHook,
+  useSectionPicker,
+} from "./SectionPicker/SectionPicker";
+import SectionEditionWrapper from "./SectionEditionWrapper/SectionEditionWrapper";
+import {
+  generateDefaultSectionData,
+  insertElement,
+  moveElement,
+} from "./PageEdition.utils";
 
 interface IPageProps {
   pageData: TPageData;
@@ -23,32 +27,25 @@ export const PageEdition: FC<IPageProps> = ({
   sectionDefinitions,
   onChange,
 }) => {
+  const sectionPicker = useSectionPicker();
   return (
     <>
-      {!pageData.config.lockSections && (
-        <AddSection
-          allowedSections={pageData.config.allowedSections}
-          sectionDefinitions={sectionDefinitions}
-          handleAddSection={(sectionDefinition) => {
-            onChange({
-              ...pageData,
-              sections: [
-                {
-                  id: uniqid(),
-                  type: sectionDefinition.name,
-                  fieldsData: {
-                    ...sectionDefinition.defaultData?.fieldsData,
-                  },
-                  params: {
-                    ...sectionDefinition.defaultData?.params,
-                  },
-                },
-                ...pageData.sections,
-              ],
-            });
-          }}
-        />
-      )}
+      <SectionPicker
+        allowedSections={pageData.config.allowedSections}
+        handleSelectSection={(index, section) => {
+          onChange({
+            ...pageData,
+            sections: insertElement(
+              pageData.sections,
+              generateDefaultSectionData(section),
+              index
+            ),
+          });
+        }}
+        sectionDefinitions={sectionDefinitions}
+        {...sectionPicker}
+      />
+
       {pageData.sections.map((sectionData, index) => {
         const sectionDefinition = sectionDefinitions.find(
           ({ name }) => sectionData.type === name
@@ -57,62 +54,15 @@ export const PageEdition: FC<IPageProps> = ({
         if (!sectionDefinition) return null;
 
         return (
-          <div key={sectionData.id} style={{ position: "relative" }}>
-            <SectionActions
-              handleRemove={() => {
-                onChange({
-                  ...pageData,
-                  sections: pageData.sections.filter(
-                    (section) => section.id !== sectionData.id
-                  ),
-                });
-              }}
-            />
-
-            {!pageData.config.lockSections && (
-              <AddSection
-                allowedSections={pageData.config.allowedSections}
-                position="bottom"
-                sectionDefinitions={sectionDefinitions}
-                handleAddSection={(sectionDefinition) => {
-                  onChange({
-                    ...pageData,
-                    sections: [
-                      ...pageData.sections.slice(0, index + 1),
-
-                      {
-                        id: uniqid(),
-                        type: sectionDefinition.name,
-                        fieldsData: {
-                          ...sectionDefinition.defaultData?.fieldsData,
-                        },
-                        params: {
-                          ...sectionDefinition.defaultData?.params,
-                        },
-                      },
-                      ...pageData.sections.slice(index + 1),
-                    ],
-                  });
-                }}
-              />
-            )}
-            <SectionEdition
-              sectionData={sectionData}
-              handleUpdate={(data) => {
-                onChange({
-                  ...pageData,
-                  sections: pageData.sections.map((section) =>
-                    section.id === data.id ? data : section
-                  ),
-                });
-              }}
-            >
-              <sectionDefinition.Component
-                params={sectionData.params}
-                data={null}
-              />
-            </SectionEdition>
-          </div>
+          <Section
+            key={sectionData.id}
+            index={index}
+            onChange={onChange}
+            pageData={pageData}
+            sectionData={sectionData}
+            sectionDefinition={sectionDefinition}
+            sectionPicker={sectionPicker}
+          />
         );
       })}
     </>
@@ -121,63 +71,72 @@ export const PageEdition: FC<IPageProps> = ({
 
 export default PageEdition;
 
-interface ISectionActionsProps {
-  handleRemove: () => void;
+interface ISectionProps {
+  index: number;
+  pageData: TPageData;
+  onChange: (pageData: TPageData) => void;
+  sectionData: TSectionData;
+  sectionPicker: TUseSectionHook;
+  sectionDefinition: TSectionDefinition;
 }
 
-const SectionActions: FC<ISectionActionsProps> = ({ handleRemove }) => {
-  return (
-    <div {...className("SectionActions")}>
-      <button onClick={handleRemove}>
-        <Trash />
-      </button>
-    </div>
-  );
-};
-
-const AddSection: FC<{
-  sectionDefinitions: TSectionDefinition[];
-  handleAddSection: (sectionDefinition: TSectionDefinition) => void;
-  position?: "bottom";
-  allowedSections?: string[];
-}> = ({
-  sectionDefinitions,
-  handleAddSection,
-  position = "top",
-  allowedSections,
+const Section: FC<ISectionProps> = ({
+  index,
+  pageData,
+  onChange,
+  sectionData,
+  sectionPicker,
+  sectionDefinition,
 }) => {
-  const sectionPicker = useSectionPicker();
+  const [data, setData] = useState<any>(null);
+
+  useEffect(() => {
+    if (sectionDefinition.getData) {
+      sectionDefinition.getData(sectionData.params).then(setData);
+    }
+  }, []);
 
   return (
-    <div
-      {...className("AddSection", { position })}
-      style={
-        position === "bottom"
-          ? {
-              bottom: 0,
-              position: "absolute",
-              left: 0,
-              right: 0,
-            }
-          : {}
-      }
-    >
-      <button
-        onClick={() => {
-          if (!sectionPicker.isOpen) sectionPicker.open();
+    <div key={sectionData.id} style={{ position: "relative" }}>
+      <SectionEditionWrapper
+        index={index}
+        pageConfig={pageData.config}
+        handleAddSection={(targetIndex) => {
+          sectionPicker.open(targetIndex);
         }}
+        handleMoveSection={(targetIndex) => {
+          onChange({
+            ...pageData,
+            sections: moveElement(pageData.sections, index, targetIndex),
+          });
+        }}
+        handleRemove={() => {
+          onChange({
+            ...pageData,
+            sections: pageData.sections.filter(
+              (section) => section.id !== sectionData.id
+            ),
+          });
+        }}
+        handleUpdateParams={() => {}}
       >
-        <Plus weight="bold" />
-      </button>
-
-      <SectionPicker
-        allowedSections={allowedSections}
-        handleSelectSection={(section) => {
-          handleAddSection(section);
-        }}
-        sectionDefinitions={sectionDefinitions}
-        {...sectionPicker}
-      />
+        <SectionEdition
+          sectionData={sectionData}
+          handleUpdate={(data) => {
+            onChange({
+              ...pageData,
+              sections: pageData.sections.map((section) =>
+                section.id === data.id ? data : section
+              ),
+            });
+          }}
+        >
+          <sectionDefinition.Component
+            params={sectionData.params}
+            data={data}
+          />
+        </SectionEdition>
+      </SectionEditionWrapper>
     </div>
   );
 };

@@ -23,8 +23,6 @@ const CustomRootPage = ({ params }: { params: { slug: string[] } }) => {
 
   const slugString = params.slug ? `/${params.slug.join("/")}` : "/";
 
-  console.log(pageData);
-
   useEffect(() => {
     clientConnector
       .getPublicPage(slugString)
@@ -50,7 +48,6 @@ const CustomRootPage = ({ params }: { params: { slug: string[] } }) => {
             ...data,
           });
           await clientConnector.updatePage(id, data);
-          console.log("SAVED");
         }}
       />
     </main>

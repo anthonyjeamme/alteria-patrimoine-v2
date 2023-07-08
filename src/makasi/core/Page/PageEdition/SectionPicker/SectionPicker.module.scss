@@ -1,11 +1,16 @@
 @keyframes SectionPickerEntry {
   from {
     opacity: 0;
-    transform: translateY(-5px);
   }
 
-  50% {
+  to {
     opacity: 1;
+  }
+}
+
+@keyframes SectionPickerContentEntry {
+  from {
+    transform: translateY(-10px);
   }
 
   to {
@@ -14,24 +19,56 @@
 }
 
 .SectionPicker {
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(var(--dark-dec), 0.9);
   z-index: 100;
-  background-color: white;
-  top: 50px;
-  left: 50%;
-  translate: -50% 0;
-  border: 2px solid rgba(var(--dark-dec), 0.1);
-  border-radius: 10px;
   display: flex;
-  max-width: 800px;
-  padding: 5px;
   user-select: none;
+  z-index: 100;
+  color: var(--dark);
 
-  animation: SectionPickerEntry 250ms;
+  animation: SectionPickerEntry 400ms;
+
+  & > .CloseButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 22px;
+    display: flex;
+    height: 40px;
+    width: 40px;
+    border-radius: 36px;
+    opacity: 0.6;
+    transition: opacity 250ms;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    & > svg {
+      margin: auto;
+    }
+  }
 
   & > div {
     overflow-x: auto;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    margin: auto;
+    width: 100%;
+
+    animation: SectionPickerContentEntry 400ms;
+
+    & > h2 {
+      margin: 40px 0 10px 0;
+    }
 
     &::-webkit-scrollbar {
       height: 10px;
@@ -47,6 +84,7 @@
       justify-content: center;
       gap: 20px;
       padding: 20px;
+      flex: 1;
 
       & > button {
         border: 2px solid rgba(var(--dark-dec), 0.1);

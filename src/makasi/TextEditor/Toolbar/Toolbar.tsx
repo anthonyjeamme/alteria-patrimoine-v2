@@ -59,85 +59,91 @@ const Toolbar: FC<IToolbarProps> = ({ hasFocus }) => {
         e.preventDefault();
       }}
     >
-      <LinkModal {...linkModal} />
-      <TopLevelBlockButton
-        Icon={Paragraph}
-        isActive={blockType === "paragraph"}
-        tag="p"
-      />
-      <TopLevelBlockButton
-        Icon={TextH}
-        isActive={blockType === "h1"}
-        tag="h1"
-      />
-      <TopLevelBlockButton
-        Icon={TextHTwo}
-        isActive={blockType === "h2"}
-        tag="h2"
-      />
-      <TopLevelBlockButton
-        Icon={TextHThree}
-        isActive={blockType === "h3"}
-        tag="h3"
-      />
+      <div>
+        <LinkModal {...linkModal} />
+        <TopLevelBlockButton
+          Icon={Paragraph}
+          isActive={blockType === "paragraph"}
+          tag="p"
+        />
+        <TopLevelBlockButton
+          Icon={TextH}
+          isActive={blockType === "h1"}
+          tag="h1"
+        />
+        <TopLevelBlockButton
+          Icon={TextHTwo}
+          isActive={blockType === "h2"}
+          tag="h2"
+        />
+        <TopLevelBlockButton
+          Icon={TextHThree}
+          isActive={blockType === "h3"}
+          tag="h3"
+        />
 
-      <TopLevelBlockButton
-        Icon={Quotes}
-        isActive={blockType === "quote"}
-        tag="quote"
-      />
+        <TopLevelBlockButton
+          Icon={Quotes}
+          isActive={blockType === "quote"}
+          tag="quote"
+        />
 
-      <TopLevelBlockButton
-        Icon={ListDashes}
-        isActive={blockType === "ul"}
-        tag="bullet-list"
-      />
+        <TopLevelBlockButton
+          Icon={ListDashes}
+          isActive={blockType === "ul"}
+          tag="bullet-list"
+        />
 
-      <TopLevelBlockButton
-        Icon={ListNumbers}
-        isActive={blockType === "ol"}
-        tag="ordered-list"
-      />
-      <LinkButton
-        isActive={isLink}
-        handleOpenModal={() => {
-          linkModal.open();
-        }}
-      />
-      {/* <DividerButton /> */}
+        <TopLevelBlockButton
+          Icon={ListNumbers}
+          isActive={blockType === "ol"}
+          tag="ordered-list"
+        />
+        <LinkButton
+          isActive={isLink}
+          handleOpenModal={() => {
+            linkModal.open();
+          }}
+        />
+        {/* <DividerButton /> */}
 
-      {/* <Divider /> */}
+        {/* <Divider /> */}
 
-      <FormatTextButton Icon={TextBolder} format="bold" isActive={isBold} />
-      <FormatTextButton Icon={TextItalic} format="italic" isActive={isItalic} />
-      <FormatTextButton
-        Icon={TextUnderline}
-        format="underline"
-        isActive={isUnderlined}
-      />
+        <FormatTextButton Icon={TextBolder} format="bold" isActive={isBold} />
+        <FormatTextButton
+          Icon={TextItalic}
+          format="italic"
+          isActive={isItalic}
+        />
+        <FormatTextButton
+          Icon={TextUnderline}
+          format="underline"
+          isActive={isUnderlined}
+        />
 
-      <Divider />
+        <Divider />
 
-      <FormatElementButton
-        Icon={TextAlignLeft}
-        format="left"
-        isActive={align === "left"}
-      />
-      <FormatElementButton
-        Icon={TextAlignCenter}
-        format="center"
-        isActive={align === "center"}
-      />
-      <FormatElementButton
-        Icon={TextAlignRight}
-        format="right"
-        isActive={align === "right"}
-      />
-      <FormatElementButton
-        Icon={TextAlignJustify}
-        format="justify"
-        isActive={align === "justify"}
-      />
+        <FormatElementButton
+          Icon={TextAlignLeft}
+          format="left"
+          isActive={align === "left"}
+        />
+        <FormatElementButton
+          Icon={TextAlignCenter}
+          format="center"
+          isActive={align === "center"}
+        />
+        <FormatElementButton
+          Icon={TextAlignRight}
+          format="right"
+          isActive={align === "right"}
+        />
+        <FormatElementButton
+          Icon={TextAlignJustify}
+          format="justify"
+          isActive={align === "justify"}
+        />
+      </div>
     </div>
   );
 };

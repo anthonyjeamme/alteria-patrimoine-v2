@@ -1,31 +1,36 @@
-import { classNameModule } from "@/utils/className/className";
-import styles from "./SectionPicker.module.scss";
+import { FC, useState } from "react";
+import { createPortal } from "react-dom";
+
 import { TSectionDefinition } from "@/makasi/core/Section/Section.types";
-import { FC, useRef, useState } from "react";
-import { useClickOutside } from "@/utils/hooks/useClickOutside/useClickOutside";
+import { classNameModule } from "@/utils/className/className";
+import { X } from "@phosphor-icons/react";
+
+import styles from "./SectionPicker.module.scss";
 const className = classNameModule(styles);
 
-type TUseSectionHook = {
+export type TUseSectionHook = {
   isOpen: boolean;
   close: () => void;
-  open: () => void;
-  toggle: () => void;
+  open: (index: number) => void;
+  toggle: (index: number) => void;
+  index: number;
 };
 
 export const useSectionPicker = (): TUseSectionHook => {
-  const [state, setState] = useState({ isOpen: false });
+  const [state, setState] = useState({ isOpen: false, index: -1 });
 
   return {
     isOpen: state.isOpen,
-    close: () => setState({ isOpen: false }),
-    open: () => setState({ isOpen: true }),
-    toggle: () => setState({ isOpen: !state.isOpen }),
+    close: () => setState({ isOpen: false, index: -1 }),
+    open: (index: number) => setState({ isOpen: true, index }),
+    toggle: (index: number) => setState({ isOpen: !state.isOpen, index }),
+    index: state.index,
   };
 };
 
 interface ISectionPickerProps {
   sectionDefinitions: TSectionDefinition[];
-  handleSelectSection: (section: TSectionDefinition) => void;
+  handleSelectSection: (index: number, section: TSectionDefinition) => void;
   allowedSections?: string[];
 }
 
@@ -35,16 +40,18 @@ const SectionPicker: FC<ISectionPickerProps & TUseSectionHook> = ({
   close,
   handleSelectSection,
   allowedSections,
+  index,
 }) => {
-  const rootRef = useRef<HTMLDivElement>(null);
-
-  useClickOutside(isOpen, close, rootRef);
-
   if (!isOpen) return null;
 
-  return (
-    <div {...className("SectionPicker")} ref={rootRef}>
+  return createPortal(
+    <div {...className("SectionPicker")}>
+      <button {...className("CloseButton")} onClick={close}>
+        <X weight="bold" />
+      </button>
+
       <div>
+        <h2>Nouvelle section</h2>
         <div>
           {sectionDefinitions
             .filter((sectionDefinition) =>
@@ -56,7 +63,7 @@ const SectionPicker: FC<ISectionPickerProps & TUseSectionHook> = ({
               <button
                 key={sectionDefinition.name}
                 onClick={() => {
-                  handleSelectSection(sectionDefinition);
+                  handleSelectSection(index, sectionDefinition);
                   close();
                 }}
               >
@@ -67,7 +74,8 @@ const SectionPicker: FC<ISectionPickerProps & TUseSectionHook> = ({
             ))}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
