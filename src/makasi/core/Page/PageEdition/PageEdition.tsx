@@ -100,6 +100,7 @@ const Section: FC<ISectionProps> = ({
     <div key={sectionData.id} style={{ position: "relative" }}>
       <SectionEditionWrapper
         index={index}
+        sectionData={sectionData}
         pageConfig={pageData.config}
         handleAddSection={(targetIndex) => {
           sectionPicker.open(targetIndex);
@@ -118,7 +119,19 @@ const Section: FC<ISectionProps> = ({
             ),
           });
         }}
-        handleUpdateParams={() => {}}
+        handleUpdateParams={(params) => {
+          onChange({
+            ...pageData,
+            sections: pageData.sections.map((section) =>
+              section.id === sectionData.id
+                ? {
+                    ...section,
+                    params,
+                  }
+                : section
+            ),
+          });
+        }}
       >
         <SectionEdition
           sectionData={sectionData}

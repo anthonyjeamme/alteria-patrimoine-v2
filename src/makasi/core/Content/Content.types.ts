@@ -1,22 +1,24 @@
 import { CSSProperties } from "react";
 
-export type TContentNode =
-  | TImageNode
-  | TContentContainerNode
-  | TContentComponentNode
-  | TContentBrandNode
-  | TSliderNode
-  | TButtonNode
-  | TDividerNode
-  | TBoxNode
-  | TListNode
-  | TListItemNode
-  | TContentColumnsNode
-  | TContentTextNode
-  | TParagraphNode
-  | TContentBlockNode
-  | TContentInternalLinkNode
-  | TContentSpreadBlockNode;
+export type TContentNode<
+  T =
+    | TImageNode
+    | TContentContainerNode
+    | TContentComponentNode
+    | TContentBrandNode
+    | TSliderNode
+    | TButtonNode
+    | TDividerNode
+    | TBoxNode
+    | TListNode
+    | TListItemNode
+    | TContentColumnsNode
+    | TContentTextNode
+    | TParagraphNode
+    | TContentBlockNode
+    | TContentInternalLinkNode
+    | TContentSpreadBlockNode
+> = { id: string } & T;
 
 export type TImageNode = {
   type: "image";

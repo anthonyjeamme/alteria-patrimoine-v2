@@ -2,6 +2,7 @@ import { FC } from "react";
 import { TContentNode } from "../Content.types";
 import ComponentNode from "./ComponentNode/ComponentNode";
 import TextNode from "./TextNode/TextNode";
+import { DividerNode } from "./DividerNode/DividerNode";
 
 const Node: FC<{ node: TContentNode; components?: any[] }> = ({
   node,
@@ -34,8 +35,8 @@ const Node: FC<{ node: TContentNode; components?: any[] }> = ({
       return <TextNode node={node} />;
     // case "spread-block":
     //   return <SpreadBlockNode node={node} />;
-    // case "divider":
-    //   return <DividerNode node={node} />;
+    case "divider":
+      return <DividerNode />;
     case "component":
       return <ComponentNode node={node} components={components} />;
     default:

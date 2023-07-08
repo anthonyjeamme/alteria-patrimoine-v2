@@ -1,5 +1,12 @@
 .Content {
   line-height: 1.3;
+
+  hr {
+    margin: 20px 0;
+    height: 1px;
+    background-color: rgba(var(--dark-dec), 0.1);
+    border: 0;
+  }
 }
 
 .ContainerNode {

@@ -21,12 +21,7 @@ const ArticlesSection: FC<
   TSectionProps<{ style: CSSProperties }, TArticleItem[]>
 > = ({ params, data }) => {
   return (
-    <div
-      {...className("ArticlesSection")}
-      style={{
-        backgroundColor: params?.style?.backgroundColor,
-      }}
-    >
+    <div {...className("ArticlesSection")} style={params.style}>
       <Container>
         <Heading name="title" heading={2} />
 

@@ -1,0 +1,80 @@
+.Page {
+  height: 100vh;
+  display: flex;
+
+  & > div {
+    flex: 1;
+    padding: 20px;
+
+    &:first-child {
+      flex: 2;
+    }
+
+    &:first-child {
+      border-right: 1px solid rgba(var(--dark-dec), 0.1);
+    }
+  }
+}
+
+.ContentEditor {
+  .nodes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .Node {
+    padding: 5px 10px;
+    background-color: var(--light);
+    border-radius: 5px;
+
+    & > button {
+      height: 30px;
+      width: 30px;
+      display: inline-flex;
+      & > svg {
+        margin: auto;
+      }
+    }
+  }
+}
+
+.AddNode {
+  position: relative;
+
+  & > button {
+    height: 30px;
+    width: 30px;
+    background-color: var(--light);
+    border-radius: 40px;
+    display: flex;
+
+    & > svg {
+      margin: auto;
+    }
+  }
+
+  & > .dropdown {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(var(--dark-dec), 0.1);
+    border-radius: 5px;
+
+    & > button {
+      width: 100%;
+      white-space: nowrap;
+      text-align: left;
+      padding: 10px;
+      transition: background-color 250ms;
+
+      &:hover {
+        background-color: var(--light);
+      }
+    }
+  }
+}

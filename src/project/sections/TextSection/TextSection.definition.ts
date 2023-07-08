@@ -10,6 +10,12 @@ export const TextSectionDefinition: TSectionDefinition = {
     "https://res.cloudinary.com/anthony-jeamme-stuff/image/upload/v1688668287/alteria/text.svg",
   Component,
   defaultData: {
+    params: {
+      style: {
+        color: "var(--dark)",
+        backgroundColor: "white",
+      },
+    },
     fieldsData: {
       text: {
         value: {

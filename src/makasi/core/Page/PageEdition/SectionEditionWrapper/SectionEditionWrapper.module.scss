@@ -83,3 +83,20 @@
     margin: auto;
   }
 }
+
+.ParamsPanel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  padding: 20px;
+  width: 350px;
+  background-color: white;
+  border-left: 1px solid rgba(var(--dark-dec), 0.1);
+
+  & > header {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
