@@ -1,0 +1,58 @@
+.NodeEditionWrapper {
+  & > header {
+    background-color: var(--light);
+    border: 1px solid rgba(var(--dark-dec), 0.1);
+    padding: 5px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & > div {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      & > .type {
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      & > button {
+        height: 30px;
+        width: 30px;
+        display: inline-flex;
+        font-size: 14px;
+        color: rgba(var(--dark-dec), 0.6);
+        transition: color 250ms;
+
+        &:hover {
+          color: var(--dark);
+        }
+
+        & > svg {
+          margin: auto;
+        }
+      }
+    }
+  }
+  & > .content {
+    border: 1px solid rgba(var(--dark-dec), 0.1);
+    border-top: 0;
+    border-radius: 0 0 5px 5px;
+  }
+
+  .caret {
+    transition: transform 250ms;
+  }
+
+  &.isOpen {
+    & > header {
+      border-radius: 5px 5px 0 0;
+    }
+
+    .caret {
+      transform: rotate(180deg);
+    }
+  }
+}

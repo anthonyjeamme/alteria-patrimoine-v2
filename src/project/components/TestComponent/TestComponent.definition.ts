@@ -6,5 +6,7 @@ const Component = dynamic(() => import("./TestComponent"));
 
 export const TestComponentDefinition: TComponentDefinition<any> = {
   name: "test",
+  label: "Cellule",
   Component,
+  hasChildren: false,
 };

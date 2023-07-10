@@ -9,6 +9,7 @@ import {
 } from "./Section.types";
 
 import { FieldsContext } from "../fieldsContext/fieldsContext";
+import { EditionContext } from "../contexts/EditionContext/EditionContext";
 
 const sectionContext = createContext<{
   edition: boolean;
@@ -64,36 +65,30 @@ export const SectionContext: FC<{
   edition?: boolean;
   handleUpdate?: (data: TSectionData) => void;
 }> = ({ children, edition = false, sectionData, handleUpdate }) => (
-  <sectionContext.Provider
-    value={{
-      edition,
-      params: sectionData.params,
-      updateParams: (params) => {
-        handleUpdate?.({
-          ...sectionData,
-          params,
-        });
-      },
-    }}
-  >
-    <FieldsContext
-      data={sectionData.fieldsData}
-      update={(fieldsData) => {
-        handleUpdate?.({
-          ...sectionData,
-          fieldsData,
-        });
+  <EditionContext edition={edition}>
+    <sectionContext.Provider
+      value={{
+        edition,
+        params: sectionData.params,
+        updateParams: (params) => {
+          handleUpdate?.({
+            ...sectionData,
+            params,
+          });
+        },
       }}
     >
-      {children}
-    </FieldsContext>
-  </sectionContext.Provider>
+      <FieldsContext
+        data={sectionData.fieldsData}
+        update={(fieldsData) => {
+          handleUpdate?.({
+            ...sectionData,
+            fieldsData,
+          });
+        }}
+      >
+        {children}
+      </FieldsContext>
+    </sectionContext.Provider>
+  </EditionContext>
 );
-
-/**
- *
- */
-export const useIsEdition = () => {
-  const sectionData = useContext(sectionContext);
-  return sectionData.edition || false;
-};

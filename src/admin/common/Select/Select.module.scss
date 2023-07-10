@@ -25,6 +25,12 @@
     border: 1px solid rgba(var(--dark-dec), 0.1);
     transition: border-color 250ms;
     background-color: rgba(var(--light-dec), 0.5) !important;
+    height: 40px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
 
     &:hover {
       border-color: rgba(var(--dark-dec), 0.3);
@@ -52,6 +58,7 @@
     animation: DropdownEntry 250ms;
     max-height: 300px;
     overflow-y: auto;
+    z-index: 100;
 
     & > div {
       display: flex;

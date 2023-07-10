@@ -1,0 +1,56 @@
+.OneDimensionField {
+  margin: 10px 0;
+  display: flex;
+
+  & > div {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(var(--dark-dec), 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+
+    & > span {
+      background-color: white;
+      display: flex;
+      align-items: center;
+      height: 30px;
+      padding: 0 10px;
+      border-radius: 5px 0 0 5px;
+      width: 200px;
+      color: rgba(var(--dark-dec), 0.6);
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    & > input {
+      width: 40px;
+      border: 0;
+      border-left: 1px solid rgba(var(--dark-dec), 0.1);
+      padding: 0 5px;
+      font-size: 14px;
+      height: 30px;
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      &[type="number"] {
+        -moz-appearance: textfield;
+      }
+    }
+
+    & > button {
+      padding: 0 10px;
+      background-color: var(--light);
+      height: 30px;
+      border-radius: 0 5px 5px 0;
+      display: flex;
+      font-size: 10px;
+      border-left: 1px solid rgba(var(--dark-dec), 0.1);
+
+      & > svg {
+        margin: auto;
+      }
+    }
+  }
+}

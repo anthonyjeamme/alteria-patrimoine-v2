@@ -1,0 +1,18 @@
+.ContainerNode {
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0 20px;
+  max-width: 100%;
+
+  &.data-size-small {
+    width: var(--small-container-size);
+  }
+
+  &.data-size-medium {
+    width: var(--medium-container-size);
+  }
+
+  &.data-size-large {
+    width: var(--large-container-size);
+  }
+}

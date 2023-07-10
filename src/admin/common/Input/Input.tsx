@@ -1,23 +1,29 @@
 import { classNameModule } from "@/utils/className/className";
 import styles from "./Input.module.scss";
-import { FC } from "react";
+import { HTMLInputTypeAttribute } from "react";
 const className = classNameModule(styles);
 
-interface IInputProps {
-  value: string;
-  onChange: (value: string) => void;
+interface IInputProps<TValue> {
+  value: TValue;
+  onChange: (value: TValue) => void;
+  type?: HTMLInputTypeAttribute;
 }
 
-const Input: FC<IInputProps> = ({ value, onChange }) => {
+function Input<TValue extends string | number | readonly string[] | undefined>({
+  value,
+  onChange,
+  type,
+}: IInputProps<TValue>) {
   return (
     <input
       {...className("Input")}
+      type={type}
       value={value}
       onChange={(e) => {
-        onChange(e.target.value);
+        onChange(e.target.value as TValue);
       }}
     />
   );
-};
+}
 
 export default Input;

@@ -1,0 +1,18 @@
+.ButtonNode {
+  height: 50px;
+  padding: 0 20px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &.data-theme-primary {
+    background-color: var(--primary);
+    color: white;
+    font-weight: 500;
+  }
+
+  &.data-theme-normal {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

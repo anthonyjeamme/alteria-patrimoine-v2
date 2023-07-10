@@ -1,11 +1,16 @@
+"use client";
+
 import { FC } from "react";
 import { TContentComponentNode } from "../../Content.types";
 import Node from "../Node";
+import { TComponentDefinition } from "@/makasi/core/Component/Component.types";
+import { FieldsContext } from "@/makasi/core/fieldsContext/fieldsContext";
 
 const ComponentNode: FC<{
   node: TContentComponentNode;
-  components?: any[];
-}> = ({ node, components }) => {
+  components?: TComponentDefinition[];
+  onChange?: (node: TComponentDefinition) => void;
+}> = ({ node, components, onChange }) => {
   if (!components) return null;
 
   const componentDefinition = components.find(
@@ -18,9 +23,16 @@ const ComponentNode: FC<{
 
   return (
     <Component params={node.componentParams} data={node.componentData}>
-      {node.children?.map((node, index) => (
-        <Node key={index} node={node} components={components} />
-      ))}
+      <FieldsContext
+        data={{}}
+        update={(data) => {
+          // onChange?.()
+        }}
+      >
+        {node.children?.map((node, index) => (
+          <Node key={index} node={node} components={components} />
+        ))}
+      </FieldsContext>
     </Component>
   );
 };

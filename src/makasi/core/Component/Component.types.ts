@@ -14,5 +14,7 @@ export type TComponentProps<TData = unknown, TParams = unknown> = {
 
 export type TComponentDefinition<TData = unknown, TParams = unknown> = {
   name: string;
+  label: string;
+  hasChildren: boolean;
   Component: ComponentType<TComponentProps<TData, TParams>>;
 };

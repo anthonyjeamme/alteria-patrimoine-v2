@@ -23,6 +23,28 @@ export function insertElement<ElementType = unknown>(
   return newList;
 }
 
+export function updateElement<ElementType = unknown>(
+  list: ElementType[],
+  element: ElementType,
+  index: number
+): ElementType[] {
+  return list.map((item, i) =>
+    i === index
+      ? {
+          ...item,
+          ...element,
+        }
+      : item
+  );
+}
+
+export function removeElement<ElementType = unknown>(
+  list: ElementType[],
+  index: number
+): ElementType[] {
+  return list.filter((_, i) => i !== index);
+}
+
 export function generateDefaultSectionData(
   sectionDefinition: TSectionDefinition
 ): TSectionData {

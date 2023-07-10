@@ -1,4 +1,5 @@
 import { CSSProperties } from "react";
+import { TStyle } from "../editors/StyleEditor/StyleEditor.types";
 
 export type TContentNode<
   T =
@@ -23,12 +24,13 @@ export type TContentNode<
 export type TImageNode = {
   type: "image";
   url: string;
+  style?: TStyle;
 };
 
 export type TSliderNode = {
   type: "slider";
   children: TContentNode[];
-  style?: CSSProperties;
+  style?: TStyle;
 };
 
 export type TContentContainerNode = {
@@ -36,7 +38,7 @@ export type TContentContainerNode = {
   maxWidth?: number;
   size: "small" | "medium" | "large";
   children: TContentNode[];
-  style?: CSSProperties;
+  style?: TStyle;
 };
 
 export type TContentComponentNode = {
@@ -56,27 +58,27 @@ export type TContentColumnsNode = {
     desktop: number;
   };
   children: TContentNode[];
-  style?: CSSProperties;
+  style?: TStyle;
 };
 
-export type TDividerNode = { type: "divider" };
+export type TDividerNode = { type: "divider"; style?: TStyle };
 
 export type TContentTextNode = {
   type: "text";
-  value: string;
-  style?: CSSProperties;
+  value: any;
+  style?: TStyle;
 };
 
 export type TParagraphNode = {
   type: "paragraph";
   children: TContentNode[];
-  style?: CSSProperties;
+  style?: TStyle;
 };
 
 export type TContentBlockNode = {
   type: "block";
   children: TContentNode[];
-  style?: CSSProperties;
+  style?: TStyle;
 };
 
 export type TButtonNode = {
@@ -84,38 +86,38 @@ export type TButtonNode = {
   theme?: "primary";
   action: TAction;
   children: TContentNode[];
-  style?: CSSProperties;
+  style?: TStyle;
 };
 
 export type TBoxNode = {
   type: "box";
   children: TContentNode[];
-  style?: CSSProperties;
+  style?: TStyle;
 };
 
 export type TListNode = {
   type: "list";
   children: TListItemNode[];
-  style?: CSSProperties;
+  style?: TStyle;
 };
 
 export type TListItemNode = {
   type: "list-item";
   children: TContentNode[];
-  style?: CSSProperties;
+  style?: TStyle;
 };
 
 export type TContentInternalLinkNode = {
   type: "internal-link";
   pathname: string;
   text: string;
-  style?: CSSProperties;
+  style?: TStyle;
 };
 
 export type TContentSpreadBlockNode = {
   type: "spread-block";
   children: TContentNode[];
-  style?: CSSProperties;
+  style?: TStyle;
 };
 
 export type TAction = TInternalLinkAction | TExternalLinkAction;

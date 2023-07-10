@@ -1,7 +1,7 @@
 .Toolbar {
   position: fixed;
   left: 0;
-  top: 0;
+  bottom: 0;
   right: 0;
   color: var(--dark);
   display: flex;
@@ -15,7 +15,7 @@
 
   transition: translate 250ms, opacity 250ms;
 
-  translate: 0 -100%;
+  translate: 0 100%;
   pointer-events: none;
   overflow-x: auto;
 

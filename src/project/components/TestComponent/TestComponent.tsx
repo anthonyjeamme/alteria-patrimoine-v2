@@ -3,6 +3,7 @@ import { TComponentProps } from "@/makasi/core/Component/Component.types";
 
 import { classNameModule } from "@/utils/className/className";
 import styles from "./TestComponent.module.scss";
+import { Heading, Text } from "@/makasi";
 const className = classNameModule(styles);
 
 const TestComponent: FC<
@@ -10,8 +11,8 @@ const TestComponent: FC<
 > = ({ data, params }) => {
   return (
     <div {...className("TestComponent")}>
-      <h2>{data.title}</h2>
-      <p>{data.subtitle}</p>
+      <Heading name="title" heading={2} />
+      <Text name="text" />
     </div>
   );
 };

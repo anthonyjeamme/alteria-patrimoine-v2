@@ -1,0 +1,102 @@
+.ContentEditor {
+  .Node {
+    padding: 5px 10px;
+    background-color: var(--light);
+    border-radius: 5px;
+
+    & > button {
+      height: 30px;
+      width: 30px;
+      display: inline-flex;
+      & > svg {
+        margin: auto;
+      }
+    }
+  }
+}
+
+.Children {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+
+.AddNode {
+  position: relative;
+
+  & > button {
+    height: 30px;
+    width: 30px;
+    background-color: var(--light);
+    border-radius: 40px;
+    display: flex;
+
+    & > svg {
+      margin: auto;
+    }
+  }
+}
+
+.AddChildLine {
+  display: flex;
+  justify-content: center;
+  background-image: linear-gradient(
+    to right,
+    rgba(var(--dark-dec), 0) 0%,
+    rgba(var(--dark-dec), 0.1) 50%,
+    rgba(var(--dark-dec), 0) 100%
+  );
+  height: 1px;
+  position: relative;
+  opacity: 0.5;
+  transition: opacity 250ms;
+  margin: 5px 0;
+
+  &:hover,
+  &.isOpen {
+    opacity: 1;
+  }
+
+  & > .dropdown {
+    position: absolute;
+    top: calc(100% + 15px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(var(--dark-dec), 0.1);
+    border-radius: 5px;
+    z-index: 10;
+
+    & > button {
+      width: 100%;
+      white-space: nowrap;
+      text-align: left;
+      padding: 10px;
+      transition: background-color 250ms;
+
+      &:hover {
+        background-color: var(--light);
+      }
+    }
+  }
+
+  & > button {
+    position: absolute;
+    top: 0;
+    translate: 0 -50%;
+    background-color: var(--light);
+    border: 1px solid rgba(var(--dark-dec), 0.1);
+    display: flex;
+    height: 20px;
+    width: 20px;
+    border-radius: 20px;
+    font-size: 10px;
+
+    & > svg {
+      margin: auto;
+    }
+  }
+}

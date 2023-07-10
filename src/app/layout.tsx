@@ -27,8 +27,8 @@ export default function RootLayout({
         className={maven.className}
         style={injectCSSVariables({
           ...prepareColorVariablesForCSSInject(themeColors),
-          "small-container-size": "800px",
-          "medium-container-size": "1000px",
+          "small-container-size": "600px",
+          "medium-container-size": "900px",
           "large-container-size": "1200px",
         })}
       >

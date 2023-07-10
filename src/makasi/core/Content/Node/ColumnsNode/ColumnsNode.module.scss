@@ -1,0 +1,12 @@
+.ColumnsNode {
+  display: grid;
+  grid-template-columns: repeat(var(--desktop-columns));
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(var(--tablet-columns));
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(var(--mobile-columns));
+  }
+}

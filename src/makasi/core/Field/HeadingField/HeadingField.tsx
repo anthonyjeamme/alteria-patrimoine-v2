@@ -2,9 +2,9 @@
 
 import { FC, createElement } from "react";
 import { TFieldProps } from "../Field.types";
-import { useIsEdition } from "@/makasi/core/Section/Section.context";
 import dynamic from "next/dynamic";
 import { useFieldContext } from "../../fieldsContext/fieldsContext";
+import { useEditionContext } from "../../contexts/EditionContext/EditionContext";
 
 const HeadingFieldEdition = dynamic(() => import("./HeadingField.edition"));
 
@@ -13,9 +13,9 @@ export const Heading: FC<TFieldProps & { heading: 1 | 2 | 3 | 4 }> = ({
   heading,
 }) => {
   const { value } = useFieldContext<string>(name);
-  const isEdition = useIsEdition();
+  const { edition } = useEditionContext();
 
-  if (isEdition) {
+  if (edition) {
     return <HeadingFieldEdition name={name} heading={heading} />;
   }
 

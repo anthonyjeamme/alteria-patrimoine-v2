@@ -1,0 +1,21 @@
+.AlignItems {
+  margin: 10px 0;
+
+  & > div {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid rgba(var(--dark-dec), 0.2);
+    height: 30px;
+    background-color: white;
+
+    & > span {
+      display: flex;
+      width: 200px;
+      padding: 0 10px;
+      color: rgba(var(--dark-dec), 0.6);
+      font-weight: 500;
+      font-size: 14px;
+    }
+  }
+}

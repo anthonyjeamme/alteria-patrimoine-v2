@@ -1,0 +1,25 @@
+.ContainerField {
+  display: flex;
+  margin: 10px 0;
+
+  & > div {
+    border: 1px solid rgba(var(--dark-dec), 0.3);
+    background-color: white;
+    height: 30px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+
+    .label {
+      display: flex;
+      align-items: center;
+      height: 30px;
+      padding: 0 10px;
+      border-radius: 5px 0 0 5px;
+      width: 200px;
+      color: rgba(var(--dark-dec), 0.6);
+      font-weight: 500;
+      font-size: 14px;
+    }
+  }
+}
