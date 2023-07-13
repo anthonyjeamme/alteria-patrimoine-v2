@@ -5,7 +5,7 @@ const Component = dynamic(() => import("./HomeSection"));
 
 export const HomeSectionDefinition: TSectionDefinition = {
   name: "home-section",
-  label: `Header de l'accueil`,
+  label: `Section de l'accueil`,
   imagePreview:
     "https://res.cloudinary.com/anthony-jeamme-stuff/image/upload/v1688668287/alteria/header.svg",
   Component,

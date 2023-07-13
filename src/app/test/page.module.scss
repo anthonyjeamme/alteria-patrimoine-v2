@@ -1,13 +1,18 @@
 .Page {
   height: 100vh;
   display: flex;
+  background-color: var(--light);
 
   & > div {
     flex: 1;
-    padding: 50px;
 
     &:first-child {
       flex: 2;
+    }
+
+    &:last-child {
+      // padding: 50px;
+      // background-color: white;
     }
 
     &:first-child {

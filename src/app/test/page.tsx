@@ -5,7 +5,6 @@ import styles from "./page.module.scss";
 import { useState } from "react";
 import Content from "@/makasi/core/Content/Content";
 import { TContentNode } from "@/makasi/core/Content/Content.types";
-import ContentEditor from "@/makasi/ContentEditor/ContentEditor";
 import { components } from "@/project/components/components";
 import { EditionContext } from "@/makasi/core/contexts/EditionContext/EditionContext";
 const className = classNameModule(styles);
@@ -27,7 +26,7 @@ const Page = () => {
             }}
           />
         </div>
-        <div>
+        {/* <div>
           <button
             onClick={() => {
               console.log(data.nodes[0]);
@@ -44,7 +43,7 @@ const Page = () => {
             }}
             components={components}
           />
-        </div>
+        </div> */}
       </div>
     </EditionContext>
   );
